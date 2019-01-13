@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1404 792" style="enable-background:new 0 0 1404 792;" xml:space="preserve">
+<style type="text/css">
+	.st0{display:none;}
+	.st1{display:inline;}
+	.st2{stroke:#010101;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st3{fill-rule:evenodd;clip-rule:evenodd;fill:#00A651;}
+	.st4{fill:none;stroke:#000000;stroke-width:0.1;stroke-miterlimit:22.9256;}
+	.st5{fill:none;stroke:#000000;stroke-width:0.1;stroke-miterlimit:10;}
+</style>
+<g id="Inlay" class="st0">
+	<g id="Top_Side_Vertical_Mirror" class="st1">
+		<g>
+			<polygon class="st2" points="651.6,219 669.8,199.2 651.6,179.5 633.4,159.6 633.4,199.4 633.5,238.8 			"/>
+			<polygon class="st2" points="586.3,114.1 566.5,95.9 546.7,114.1 526.9,132.3 566.5,132.3 606.1,132.3 			"/>
+			<polygon class="st2" points="546.7,284.5 566.5,302.6 586.3,284.5 606.1,266.2 566.5,266.2 526.9,266.2 			"/>
+			<polygon class="st2" points="481.3,179.5 463.2,199.4 481.3,219.2 499.5,238.8 499.5,199.4 499.5,159.6 			"/>
+		</g>
+	</g>
+</g>
+<g id="Bottom">
+	<g id="Inside_Controls">
+		<rect x="323.2" y="423.8" class="st3" width="17" height="17"/>
+		<rect x="323.2" y="534.6" class="st3" width="17" height="17"/>
+		<path class="st4" d="M724.9,360.3V417h-8.5v42.5h8.5v56.7h-8.5v42.5h8.5v56.7h-8.5c-1.6,0-2.8,1.3-2.8,2.8
+			c0,7.8-6.4,14.2-14.2,14.2h-618c-7.8,0-14.2-6.4-14.2-14.2c0-1.6-1.3-2.8-2.8-2.8l0,0h-8.5v-56.7h8.5v-42.5h-8.5v-56.7h8.5V417
+			h-8.5"/>
+		<ellipse class="st4" cx="441.2" cy="541.3" rx="39.7" ry="39.7"/>
+		<circle class="st4" cx="563.2" cy="541.2" r="39.7"/>
+		<circle class="st4" cx="502.2" cy="434.2" r="39.7"/>
+		<ellipse class="st4" cx="624.1" cy="434.2" rx="39.7" ry="39.7"/>
+		<path class="st4" d="M331.7,539.5c2,0,3.7,1.6,3.7,3.7s-1.6,3.7-3.7,3.7c-2,0-3.7-1.6-3.7-3.7S329.6,539.5,331.7,539.5z"/>
+		<path class="st4" d="M331.7,428.6c2,0,3.7,1.6,3.7,3.7s-1.6,3.7-3.7,3.7c-2,0-3.7-1.6-3.7-3.7S329.6,428.6,331.7,428.6z"/>
+		
+			<ellipse transform="matrix(0.1602 -0.9871 0.9871 0.1602 -301.8017 620.742)" class="st4" cx="213.9" cy="487.7" rx="35.4" ry="35.4"/>
+		<rect x="357.4" y="439.7" class="st4" width="8.1" height="113.3"/>
+		<rect x="87.9" y="423.8" class="st3" width="17" height="17"/>
+		<rect x="87.9" y="534.6" class="st3" width="17" height="17"/>
+		<path class="st4" d="M96.4,539.5c2,0,3.7,1.6,3.7,3.7s-1.6,3.7-3.7,3.7c-2,0-3.7-1.6-3.7-3.7S94.3,539.5,96.4,539.5z"/>
+		<path class="st4" d="M96.4,428.6c2,0,3.7,1.6,3.7,3.7s-1.6,3.7-3.7,3.7c-2,0-3.7-1.6-3.7-3.7S94.3,428.6,96.4,428.6z"/>
+		<line class="st4" x1="55.9" y1="417" x2="55.9" y2="360.3"/>
+		<line class="st5" x1="55.9" y1="360.3" x2="724.9" y2="360.3"/>
+	</g>
+</g>
+<g id="Top">
+	<g id="Bottom_Side">
+		<path class="st4" d="M64.1,326.6h652h8.5v-56.7h-8.5v-42.5h8.5v-56.7h-8.5v-42.6h8.5V71.4h-8.5c-1.6,0-2.8-1.3-2.8-2.8
+			c0-7.8-6.4-14.2-14.2-14.2h-618c-7.8,0-14.2,6.4-14.2,14.2c0,1.6-1.3,2.8-2.8,2.8l0,0h-8.5v56.7h8.5v42.5h-8.5v56.7h8.5v42.5h-8.5
+			v56.8L64.1,326.6L64.1,326.6z"/>
+		<ellipse class="st4" cx="441" cy="145.7" rx="39.7" ry="39.7"/>
+		<ellipse class="st4" cx="562.8" cy="145.7" rx="39.7" ry="39.7"/>
+		
+			<ellipse transform="matrix(0.3827 -0.9239 0.9239 0.3827 76.3668 619.691)" class="st4" cx="501.9" cy="252.7" rx="39.7" ry="39.7"/>
+		<circle class="st4" cx="623.8" cy="252.7" r="39.7"/>
+		<circle class="st4" cx="213.7" cy="199.2" r="35.4"/>
+		<rect x="322" y="134.3" class="st3" width="18.7" height="18.7"/>
+		<rect x="322" y="245.2" class="st3" width="18.7" height="18.7"/>
+		<rect x="86.7" y="134.3" class="st3" width="18.7" height="18.7"/>
+		<rect x="86.7" y="245.2" class="st3" width="18.7" height="18.7"/>
+	</g>
+</g>
+</svg>
