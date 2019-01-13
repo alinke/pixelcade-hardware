@@ -68,6 +68,9 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
    elif [[ $ROMPATH == *"invader"* ]];then
      echo "space invaders match" >&2
      GAMEIMAGE="spaceinvaders.gif"
+   elif [[ $ROMPATH == *"Samus"* ]];then
+     echo "samus match" >&2
+     GAMEIMAGE="0samus.gif"
    elif [[ $ROMPATH == *"vanguard"* ]];then
      echo "vanguard match" >&2
      GAMEIMAGE="vanguard.gif"
