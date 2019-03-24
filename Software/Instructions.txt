@@ -3,3 +3,6 @@ Instructions:
 1. Copy retrogame.cfg to your Pi /boot/retrogame.cfg
 2. Copy runcommand-onstart.sh to your Pi /opt/retropie/all/
 3. Optional - Copy the runcommand-menu folder to your Pi /opt/retropie/all/
+
+
+
