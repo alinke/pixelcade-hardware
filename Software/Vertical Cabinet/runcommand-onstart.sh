@@ -481,25 +481,6 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
      fi
    fi
 
-   if [[ $PLATFORM == "gamegear" ]];then
-     echo "Entered ${PLATFORM} If Statement" >&2
-    if [[ -f "$MARQUEEGIF" ]]; then
-       GAMEIMAGE=$MARQUEEGIF
-       echo "File $MARQUEEGIF exists so we'll write it to the LED marquee" >&2
-       USERMESSAGE="Writing LED Marquee for ${GAMEFILENAME}..."
-    else
-       if [[ -f $GAMEGEARDEFAULT ]]; then
-         GAMEIMAGE=$GAMEGEARDEFAULT
-         echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
-         USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
-       else
-         GAMEIMAGE=$MAMEDEFAULT
-         echo "File $GAMEGEARDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
-         USERMESSAGE="Writing Generic LED Marquee..."
-       fi
-     fi
-   fi
-
    if [[ $PLATFORM == "intellivision" ]];then
      echo "Entered ${PLATFORM} If Statement" >&2
     if [[ -f "$MARQUEEGIF" ]]; then
