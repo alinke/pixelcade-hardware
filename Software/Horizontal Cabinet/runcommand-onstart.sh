@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #TO DO see if streaming works and killing the prior process
-
+#V3.4
 # *************** Defaults you can change in this section if you like *********************
 # Change this if you have the pixel directory in a different location
 PIXELPATH="/home/pi/pixel/"
@@ -1023,7 +1023,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
    else
        echo $USERMESSAGE
        echo >&2
-       java -jar "${PIXELPATH}pixelc.jar" --path="$PIXELPATH" --gif="$GAMEIMAGE" --${LEDRESOLUTION} --write --silent #this line does the actual LED write /TODO check later if stream with & works instead of write to save time. If that works, then would need to find a way to kill the current process but downside here is that the Pi is burning CPU cycles whereas the write moves the compute over to the PIXEL controller so may be best to leave as is
+       java -jar "${PIXELPATH}pixelc.jar" --gif="$GAMEIMAGE" --${LEDRESOLUTION} --write --silent #this line does the actual LED write /TODO check later if stream with & works instead of write to save time. If that works, then would need to find a way to kill the current process but downside here is that the Pi is burning CPU cycles whereas the write moves the compute over to the PIXEL controller so may be best to leave as is
         #java -jar "${PIXELPATH}pixelc.jar" --path="$PIXELPATH" --gif="$GAMEIMAGE" --${LEDRESOLUTION} --write  #without silient you'll see more output messages on screen which is good for troubleshooting
    fi
 
