@@ -1,5 +1,5 @@
 @echo off
 setlocal ENABLEDELAYEDEXPANSION
-set CONSOLE=default
-set GAMENAME=%2
-pixelcade.bat %CONSOLE% dummy99
+set CONSOLE=%1
+set GAMENAME=%~2
+pixelcade.bat %CONSOLE% dummy9999

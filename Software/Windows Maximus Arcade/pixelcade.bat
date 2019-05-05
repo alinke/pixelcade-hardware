@@ -26,10 +26,10 @@ set USERMESSAGE=""
 REM ******Set the Default Console Marquees *************************
 
 REM First let's set a default marquee in case the console specific ones don't exist
-set CONSOLEDEFAULT=default-mame.gif  
+set CONSOLEDEFAULT=default-marquee.gif
+IF %CONSOLE%==default set CONSOLEDEFAULT=default-marquee.gif 
 
 IF %CONSOLE%==3do set CONSOLEDEFAULT=default-3do.gif
-IF %CONSOLE%==arcade86 set CONSOLEDEFAULT=default-arcade86.gif
 IF %CONSOLE%==amiga set CONSOLEDEFAULT=default-amiga.gif
 IF %CONSOLE%==amstradcpc set CONSOLEDEFAULT=default-amstradcpc.gif
 IF %CONSOLE%==apple2 set CONSOLEDEFAULT=default-apple2.gif
@@ -75,6 +75,7 @@ IF %CONSOLE%==segacd set CONSOLEDEFAULT=default-segacd.gif
 IF %CONSOLE%==sg-1000 set CONSOLEDEFAULT=default-sg-1000.gif
 IF %CONSOLE%==snes set CONSOLEDEFAULT=default-snes.gif
 IF %CONSOLE%==pcengine set CONSOLEDEFAULT=default-pcengine.gif
+IF %CONSOLE%==ti99 set CONSOLEDEFAULT=default-ti99.gif
 IF %CONSOLE%==wonderswan set CONSOLEDEFAULT=default-wonderswan.gif
 IF %CONSOLE%==wonderswancolor set CONSOLEDEFAULT=default-wonderswancolor.gif
 IF %CONSOLE%==vectrex set CONSOLEDEFAULT=default-vectrex.gif
@@ -121,6 +122,5 @@ echo %USERMESSAGE%
 
 echo pixelc.exe --port=%port_% --gif="%GAMEMARQUEE%" --%ledResolution_% --write 
 pixelc.exe --port=%port_% --gif="%GAMEMARQUEE%" --%ledResolution_% --write 
-pause
 REM possible to do, the java code coud run without a port the first time and then write the detected port to a .txt file. if port not specified here, could read this file as a backup
 
