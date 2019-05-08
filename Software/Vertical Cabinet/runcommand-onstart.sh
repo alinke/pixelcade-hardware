@@ -4,21 +4,23 @@
 #v3.4
 # *************** Defaults you can change in this section if you like *********************
 # Change this if you have the pixel directory in a different location
-PIXELPATH="/home/pi/pixel/"
+PIXELPATH="/home/pi/pixelcade/"
 PIPATH="/dev/ttyACM0"
-MAMECSV="mame.csv"  # .csv file that maps rom name to game name
 # Default LED Matrix Resolution, supported are 32x16, 32x32, 64x32, 64x16, 128x32, 64x64
 LEDRESOLUTION="64x32"
 #Default LED Marquee gifs by platform
 MAMEDEFAULT="default-mame.gif"
+MAMECSV="mame.csv"  # .csv file that maps rom name to game name
 
 3DODEFAULT="default-3do.gif"
+AMIGADEFAULT="default-amiga.gif"
 AMSTRADCPCDEFAULT="default-amstradcpc.gif"
 APPLE2DEFAULT="default-apple2.gif"
 ATARI800DEFAULT="default-atari800.gif"
 ATARI2600DEFAULT="default-atari2600.gif"
 ATARI5200DEFAULT="default-atari5200.gif"
 ATARI7800DEFAULT="default-atari7800.gif"
+ATARIJAGUARDEFAULT="default-atarijaguar.gif"
 ATARILYNXDEFAULT="default-atarilynx.gif"
 C64DEFAULT="default-c64.gif"
 COLECODEFAULT="default-coleco.gif"
@@ -43,7 +45,9 @@ NGPCDEFAULT="default-ngpc.gif"
 NGPDEFAULT="default-ngp.gif"
 N64DEFAULT="default-n64.gif"
 NESDEFAULT="default-nes.gif"
+VIDEOPACDEFAULT="default-videopac.gif"
 PCDEFAULT="default-pc.gif"
+PCENGINEDEFAULT="default-pcengine.gif"
 PSXDEFAULT="default-psx.gif"
 PSPDEFAULT="default-psp.gif"
 SATURNDEFAULT="default-saturn.gif"
@@ -51,12 +55,12 @@ SEGA32XDEFAULT="default-sega32x.gif"
 SEGACDDEFAULT="default-segacd.gif"
 SG1000DEFAULT="default-sg-1000.gif"
 SNESDEFAULT="default-snes.gif"
-PCENGINEDEFAULT="default-pcengine.gif"
-ZXSPECTRUMDEFAULT="default-zxspectrum.gif"
+TI99DEFAULT="default-ti99.gif"
 WONDERSWANDEFAULT="default-wonderswan.gif"
 WONDERSWANCOLORDEFAULT="default-wonderswancolor.gif"
 VECTREXDEFAULT="default-vectrex.gif"
 VIRTUALBOYDEFAULT="default-virtualboy.gif"
+ZXSPECTRUMDEFAULT="default-zxspectrum.gif"
 ZMACHINEDEFAULT="default-zmachine.gif"
 
 #*******************************************************************************************
@@ -134,6 +138,25 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
        else
          GAMEIMAGE=$MAMEDEFAULT  # no platform marquee exists so we'll use the mame default
          echo "File $3DODEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
+         USERMESSAGE="Writing Generic LED Marquee..."
+       fi
+     fi
+   fi
+
+   if [[ $PLATFORM == "amiga" ]];then
+     echo "Entered ${PLATFORM} If Statement" >&2
+    if [[ -f "$MARQUEEGIF" ]]; then
+       GAMEIMAGE=$MARQUEEGIF
+       echo "File $MARQUEEGIF exists so we'll write it to the LED marquee" >&2
+       USERMESSAGE="Writing LED Marquee for ${GAMEFILENAME}..."
+    else
+       if [[ -f $AMIGADEFAULT ]]; then
+         GAMEIMAGE=$AMIGADEFAULT
+         echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
+         USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
+       else
+         GAMEIMAGE=$MAMEDEFAULT
+         echo "File $AMIGADEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee..."
        fi
      fi
@@ -252,6 +275,27 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
        fi
     fi
    fi
+
+   if [[ $PLATFORM == "atarijaguar" ]];then
+     echo "Entered ${PLATFORM} If Statement" >&2
+    if [[ -f "$MARQUEEGIF" ]]; then
+       GAMEIMAGE=$MARQUEEGIF
+       echo "File $MARQUEEGIF exists so we'll write it to the LED marquee" >&2
+       USERMESSAGE="Writing LED Marquee for ${GAMEFILENAME}..."
+    else
+       if [[ -f $ATARIJAGUARDEFAULT ]]; then
+         GAMEIMAGE=$ATARIJAGUARDEFAULT
+         echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
+         USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
+       else
+         GAMEIMAGE=$MAMEDEFAULT
+         echo "File $ATARIJAGUARDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
+          USERMESSAGE="Writing Generic LED Marquee..."
+       fi
+    fi
+   fi
+
+
 
    if [[ $PLATFORM == "atarilynx" ]];then
      echo "Entered ${PLATFORM} If Statement" >&2
@@ -710,6 +754,26 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
    fi
   fi
 
+  if [[ $PLATFORM == "pcengine" ]];then
+    echo "Entered ${PLATFORM} If Statement" >&2
+   if [[ -f "$MARQUEEGIF" ]]; then
+      GAMEIMAGE=$MARQUEEGIF
+      echo "File $MARQUEEGIF exists so we'll write it to the LED marquee" >&2
+      USERMESSAGE="Writing LED Marquee for ${GAMEFILENAME}..."
+   else
+      if [[ -f $PCENGINEDEFAULT ]]; then
+        GAMEIMAGE=$PCENGINEDEFAULT
+        echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
+        USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
+      else
+        GAMEIMAGE=$MAMEDEFAULT
+        echo "File $PCENGINEDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
+        USERMESSAGE="Writing Generic LED Marquee..."
+      fi
+   fi
+  fi
+
+
   if [[ $PLATFORM == "psx" ]];then
     echo "Entered ${PLATFORM} If Statement" >&2
    if [[ -f "$MARQUEEGIF" ]]; then
@@ -844,43 +908,44 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
    fi
   fi
 
-  if [[ $PLATFORM == "pcengine" ]];then
+  if [[ $PLATFORM == "ti99" ]];then
     echo "Entered ${PLATFORM} If Statement" >&2
    if [[ -f "$MARQUEEGIF" ]]; then
       GAMEIMAGE=$MARQUEEGIF
       echo "File $MARQUEEGIF exists so we'll write it to the LED marquee" >&2
       USERMESSAGE="Writing LED Marquee for ${GAMEFILENAME}..."
    else
-      if [[ -f $PCENGINEDEFAULT ]]; then
-        GAMEIMAGE=$PCENGINEDEFAULT
+      if [[ -f $TI99DEFAULT ]]; then
+        GAMEIMAGE=$TI99DEFAULT
         echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
       else
         GAMEIMAGE=$MAMEDEFAULT
-        echo "File $PCENGINEDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
+        echo "File $TI99DEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee..."
       fi
    fi
   fi
 
-  if [[ $PLATFORM == "zxspectrum" ]];then
+  if [[ $PLATFORM == "videopac" ]];then
     echo "Entered ${PLATFORM} If Statement" >&2
    if [[ -f "$MARQUEEGIF" ]]; then
       GAMEIMAGE=$MARQUEEGIF
       echo "File $MARQUEEGIF exists so we'll write it to the LED marquee" >&2
       USERMESSAGE="Writing LED Marquee for ${GAMEFILENAME}..."
    else
-      if [[ -f $ZXSPECTRUMDEFAULT ]]; then
-        GAMEIMAGE=$ZXSPECTRUMDEFAULT
+      if [[ -f $VIDEOPACDEFAULT ]]; then
+        GAMEIMAGE=$VIDEOPACDEFAULT
         echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
       else
         GAMEIMAGE=$MAMEDEFAULT
-        echo "File $ZXSPECTRUMDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
+        echo "File $VIDEOPACDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee..."
       fi
    fi
   fi
+
 
   if [[ $PLATFORM == "wonderswan" ]];then
     echo "Entered ${PLATFORM} If Statement" >&2
@@ -977,14 +1042,25 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
    fi
   fi
 
-
-  if [[ -f "pixel-logo.txt" ]]; then  #some ascii art for logo is in this file
-    cat "pixel-logo.txt"
-    echo " "
-  else
-     echo "*** PIXEL LED Marquee ***"
+  if [[ $PLATFORM == "zxspectrum" ]];then
+    echo "Entered ${PLATFORM} If Statement" >&2
+   if [[ -f "$MARQUEEGIF" ]]; then
+      GAMEIMAGE=$MARQUEEGIF
+      echo "File $MARQUEEGIF exists so we'll write it to the LED marquee" >&2
+      USERMESSAGE="Writing LED Marquee for ${GAMEFILENAME}..."
+   else
+      if [[ -f $ZXSPECTRUMDEFAULT ]]; then
+        GAMEIMAGE=$ZXSPECTRUMDEFAULT
+        echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
+        USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
+      else
+        GAMEIMAGE=$MAMEDEFAULT
+        echo "File $ZXSPECTRUMDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
+        USERMESSAGE="Writing Generic LED Marquee..."
+      fi
+   fi
   fi
-
+  
    #now we're done, let's call the code to write the LED marquee image
    # but let's first check if the current gif is the same as the newly selected one and if yes, we'll skip the write to save time
 
@@ -1000,8 +1076,14 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
    echo $md5new > last-marquee.txt  #write to a text file so we can check next time, and note we are overwriting here, not appending
 
    if [[ "$md5old" == "$md5new" ]]; then  #now check if they are the same
-       echo "LED Marquee hasn't changed so not writing again..."
+       echo "LED Marquee hasn't changed so not writing again..." >&2
    else
+       if [[ -f "pixel-logo.txt" ]]; then  #some ascii art for logo is in this file
+         cat "pixel-logo.txt"
+         echo " "
+       else
+          echo "*** PIXEL LED Marquee ***"
+       fi
        echo $USERMESSAGE
        echo >&2
        java -jar "${PIXELPATH}pixelc.jar" --gif="$GAMEIMAGE" --${LEDRESOLUTION} --write --silent #this line does the actual LED write /TODO check later if stream with & works instead of write to save time. If that works, then would need to find a way to kill the current process but downside here is that the Pi is burning CPU cycles whereas the write moves the compute over to the PIXEL controller so may be best to leave as is
