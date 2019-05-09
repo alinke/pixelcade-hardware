@@ -1,17 +1,17 @@
 #!/bin/sh
 
 #TO DO see if streaming works and killing the prior process
-#v3.4
+#v3.6
 # *************** Defaults you can change in this section if you like *********************
-# Change this if you have the pixel directory in a different location
+# Change this if you have the pixelcade directory in a different location
 PIXELPATH="/home/pi/pixelcade/"
 PIPATH="/dev/ttyACM0"
 # Default LED Matrix Resolution, supported are 32x16, 32x32, 64x32, 64x16, 128x32, 64x64
 LEDRESOLUTION="64x32"
-#Default LED Marquee gifs by platform
-MAMEDEFAULT="default-mame.gif"
+#Default LED Marquee if no specific ROM gif or platform gif is found, also this is the default for mame
+ARCADEDEFAULT="default-arcade.gif"
 MAMECSV="mame.csv"  # .csv file that maps rom name to game name
-
+#*******************************************************************************************
 3DODEFAULT="default-3do.gif"
 AMIGADEFAULT="default-amiga.gif"
 AMSTRADCPCDEFAULT="default-amstradcpc.gif"
@@ -64,7 +64,7 @@ ZXSPECTRUMDEFAULT="default-zxspectrum.gif"
 ZMACHINEDEFAULT="default-zmachine.gif"
 
 #*******************************************************************************************
-GAMEIMAGE=MAMEDEFAULT #set this as the default and then will change it based on what game / platform is launched
+GAMEIMAGE=ARCADEDEFAULT #set this as the default and then will change it based on what game / platform is launched
 USERMESSAGE=""
 
 pixelexists="ls $PIPATH"
@@ -78,24 +78,22 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
    ROMPATH=$3
    # Let's extract just the filename and then we can see if that matches an LED gif file on the Pi
    GAMEFILENAME=$(basename -- "$ROMPATH")
-   #extension="${GAMEFILENAME##*.}"
    GAMEFILENAME="${GAMEFILENAME%.*}"
-   #MARQUEEGIF="${GAMEFILENAME}.gif"
    echo "**** PIXEL LED MARQUEE LOG ****" >&2
    #Note the log (all lines with >&2) is written here on your Pi /root/dev/shm/runcommand.log
    echo "Selected Platform: ${PLATFORM}" >&2
    echo "Selected Game Full Path: ${ROMPATH}" >&2
    echo "Selected Game Name Only: ${GAMEFILENAME}" >&2
-   #echo "Target LED GIF: ${PIXELPATH}${PLATFORM}/${MARQUEEGIF}" >&2  # example /home/pi/pixel/atari2600/pacman.gif
-   #echo "Target LED GIF: ${PIXELPATH}${PLATFORM}/${MARQUEEGIF}" >&2  # example /home/pi/pixel/atari2600/pacman.gif
 
    MARQUEEGIF="${PIXELPATH}${PLATFORM}/${GAMEFILENAME}.gif"  #this is using absolute path
-   #MARQUEEGIF="${PIXELPATH}${GAMEFILENAME}.gif"
 
    echo "Target LED GIF: ${MARQUEEGIF}" >&2
 
-   if [[ $PLATFORM == "mame-libretro" ]] || [[ $PLATFORM == "mame-mame4all" ]] || [[ $PLATFORM == "arcade" ]];then
-     echo "Entered ${PLATFORM} If Statement" >&2
+   #these items under arcade
+   if [[ $PLATFORM == "mame-libretro" ]] || [[ $PLATFORM == "mame-mame4all" ]] || [[ $PLATFORM == "arcade" ]] || [[ $PLATFORM == "mame-advmame" ]] || [[ $PLATFORM == "fba" ]] || [[ $PLATFORM == "neogeo" ]];then
+     MARQUEEGIF="${PIXELPATH}arcade/${GAMEFILENAME}.gif"  #this is using absolute path
+     echo "Target LED GIF: ${MARQUEEGIF}" >&2
+     echo "Entered Arcade If Statement" >&2
     if [[ -f "$MARQUEEGIF" ]]; then
        GAMEIMAGE=$MARQUEEGIF
        echo "File $MARQUEEGIF exists so we'll write it to the LED marquee" >&2
@@ -111,18 +109,44 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
            echo "file $MAMECSV does not exist"
        fi
     else
-       if [[ -f $MAMEDEFAULT ]]; then
-         GAMEIMAGE=$MAMEDEFAULT
+       if [[ -f $ARCADEDEFAULT ]]; then
+         GAMEIMAGE=$ARCADEDEFAULT
          echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          #echo "Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
          USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
        else
-         GAMEIMAGE=$MAMEDEFAULT
+         GAMEIMAGE=$ARCADEDEFAULT
          echo "File $NGPCDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
        fi
-    fi
-   fi
+       #but if it's fba or neogeo, then use those default platform gifs
+       if [[ $PLATFORM == "fba" ]];then
+           if [[ -f $FBADEFAULT ]]; then
+             GAMEIMAGE=$FBADEFAULT
+             echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
+             USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
+           else
+             GAMEIMAGE=$ARCADEDEFAULT
+             echo "File $FBADEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
+             USERMESSAGE="Writing Generic LED Marquee..."
+         fi
+       fi
 
+       if [[ $PLATFORM == "neogeo" ]];then
+         echo "Entered ${PLATFORM} If Statement" >&2
+
+           if [[ -f $NEOGEODEFAULT ]]; then
+             GAMEIMAGE=$NEOGEODEFAULT
+             echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
+             USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
+           else
+             GAMEIMAGE=$ARCADEDEFAULT
+             echo "File $NEOGEODEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
+             USERMESSAGE="Writing Generic LED Marquee..."
+           fi
+       fi
+
+    fi
+  fi
 
    if [[ $PLATFORM == "3do" ]];then
      echo "Entered ${PLATFORM} If Statement" >&2
@@ -136,7 +160,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
          echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
        else
-         GAMEIMAGE=$MAMEDEFAULT  # no platform marquee exists so we'll use the mame default
+         GAMEIMAGE=$ARCADEDEFAULT  # no platform marquee exists so we'll use the mame default
          echo "File $3DODEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee..."
        fi
@@ -155,7 +179,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
          echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
        else
-         GAMEIMAGE=$MAMEDEFAULT
+         GAMEIMAGE=$ARCADEDEFAULT
          echo "File $AMIGADEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee..."
        fi
@@ -174,7 +198,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
          echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
        else
-         GAMEIMAGE=$MAMEDEFAULT
+         GAMEIMAGE=$ARCADEDEFAULT
          echo "File $APPLE2DEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee..."
        fi
@@ -193,7 +217,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
           echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
            USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
         else
-          GAMEIMAGE=$MAMEDEFAULT
+          GAMEIMAGE=$ARCADEDEFAULT
           echo "File $AMSTRADCPCDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
           USERMESSAGE="Writing Generic LED Marquee..."
         fi
@@ -212,7 +236,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
           echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
           USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
         else
-          GAMEIMAGE=$MAMEDEFAULT
+          GAMEIMAGE=$ARCADEDEFAULT
           echo "File $ATARI800DEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
           USERMESSAGE="Writing Generic LED Marquee..."
         fi
@@ -231,7 +255,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
           echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
           USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
         else
-          GAMEIMAGE=$MAMEDEFAULT
+          GAMEIMAGE=$ARCADEDEFAULT
           echo "File $ATARI2600DEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
           USERMESSAGE="Writing Generic LED Marquee..."
         fi
@@ -250,7 +274,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
          echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
        else
-         GAMEIMAGE=$MAMEDEFAULT
+         GAMEIMAGE=$ARCADEDEFAULT
          echo "File $ATARI5200DEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
           USERMESSAGE="Writing Generic LED Marquee..."
        fi
@@ -269,7 +293,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
          echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
        else
-         GAMEIMAGE=$MAMEDEFAULT
+         GAMEIMAGE=$ARCADEDEFAULT
          echo "File $ATARI7800DEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
           USERMESSAGE="Writing Generic LED Marquee..."
        fi
@@ -288,7 +312,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
          echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
        else
-         GAMEIMAGE=$MAMEDEFAULT
+         GAMEIMAGE=$ARCADEDEFAULT
          echo "File $ATARIJAGUARDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
           USERMESSAGE="Writing Generic LED Marquee..."
        fi
@@ -309,7 +333,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
          echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
        else
-         GAMEIMAGE=$MAMEDEFAULT
+         GAMEIMAGE=$ARCADEDEFAULT
          echo "File $ATARILYNXDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
           USERMESSAGE="Writing Generic LED Marquee..."
        fi
@@ -328,7 +352,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
          echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
        else
-         GAMEIMAGE=$MAMEDEFAULT
+         GAMEIMAGE=$ARCADEDEFAULT
          echo "File $C64DEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
           USERMESSAGE="Writing Generic LED Marquee..."
        fi
@@ -347,7 +371,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
          echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
        else
-         GAMEIMAGE=$MAMEDEFAULT
+         GAMEIMAGE=$ARCADEDEFAULT
          echo "File $COLECODEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
           USERMESSAGE="Writing Generic LED Marquee..."
        fi
@@ -366,7 +390,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
          echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
        else
-         GAMEIMAGE=$MAMEDEFAULT
+         GAMEIMAGE=$ARCADEDEFAULT
          echo "File $DAPHNEDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
           USERMESSAGE="Writing Generic LED Marquee..."
        fi
@@ -385,31 +409,14 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
          echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
        else
-         GAMEIMAGE=$MAMEDEFAULT
+         GAMEIMAGE=$ARCADEDEFAULT
          echo "File $DREAMCASTDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee..."
        fi
      fi
    fi
 
-   if [[ $PLATFORM == "fba" ]];then
-     echo "Entered ${PLATFORM} If Statement" >&2
-    if [[ -f "$MARQUEEGIF" ]]; then
-       GAMEIMAGE=$MARQUEEGIF
-       echo "File $MARQUEEGIF exists so we'll write it to the LED marquee" >&2
-       USERMESSAGE="Writing LED Marquee for ${GAMEFILENAME}..."
-    else
-       if [[ -f $FBADEFAULT ]]; then
-         GAMEIMAGE=$FBADEFAULT
-         echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
-         USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
-       else
-         GAMEIMAGE=$MAMEDEFAULT
-         echo "File $FBADEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
-         USERMESSAGE="Writing Generic LED Marquee..."
-       fi
-     fi
-   fi
+
 
    if [[ $PLATFORM == "fds" ]];then
      echo "Entered ${PLATFORM} If Statement" >&2
@@ -423,7 +430,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
          echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
        else
-         GAMEIMAGE=$MAMEDEFAULT
+         GAMEIMAGE=$ARCADEDEFAULT
          echo "File $FDSDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee..."
        fi
@@ -442,7 +449,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
          echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
        else
-         GAMEIMAGE=$MAMEDEFAULT
+         GAMEIMAGE=$ARCADEDEFAULT
          echo "File $GBDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee..."
        fi
@@ -461,7 +468,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
          echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
        else
-         GAMEIMAGE=$MAMEDEFAULT
+         GAMEIMAGE=$ARCADEDEFAULT
          echo "File $GBADEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee..."
        fi
@@ -480,7 +487,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
          echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
        else
-         GAMEIMAGE=$MAMEDEFAULT
+         GAMEIMAGE=$ARCADEDEFAULT
          echo "File $GBCDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee..."
        fi
@@ -499,7 +506,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
          echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
        else
-         GAMEIMAGE=$MAMEDEFAULT
+         GAMEIMAGE=$ARCADEDEFAULT
          echo "File $GAMEGEARDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee..."
        fi
@@ -518,7 +525,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
          echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
        else
-         GAMEIMAGE=$MAMEDEFAULT
+         GAMEIMAGE=$ARCADEDEFAULT
          echo "File $GENESISDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee..."
        fi
@@ -537,7 +544,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
          echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
        else
-         GAMEIMAGE=$MAMEDEFAULT
+         GAMEIMAGE=$ARCADEDEFAULT
          echo "File $INTELLIVISIONDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee..."
        fi
@@ -556,7 +563,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
          echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
        else
-         GAMEIMAGE=$MAMEDEFAULT
+         GAMEIMAGE=$ARCADEDEFAULT
          echo "File $MACINTOSHDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee..."
        fi
@@ -576,7 +583,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
          echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
        else
-         GAMEIMAGE=$MAMEDEFAULT
+         GAMEIMAGE=$ARCADEDEFAULT
          echo "File $MASTERSYSTEMDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee..."
        fi
@@ -595,7 +602,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
          echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
        else
-         GAMEIMAGE=$MAMEDEFAULT
+         GAMEIMAGE=$ARCADEDEFAULT
          echo "File $MEGADRIVEDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee..."
        fi
@@ -614,7 +621,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
          echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
        else
-         GAMEIMAGE=$MAMEDEFAULT
+         GAMEIMAGE=$ARCADEDEFAULT
          echo "File $MSXDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee..."
        fi
@@ -633,27 +640,8 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
          echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
        else
-         GAMEIMAGE=$MAMEDEFAULT
+         GAMEIMAGE=$ARCADEDEFAULT
          echo "File $NDSDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
-         USERMESSAGE="Writing Generic LED Marquee..."
-       fi
-     fi
-   fi
-
-   if [[ $PLATFORM == "neogeo" ]];then
-     echo "Entered ${PLATFORM} If Statement" >&2
-    if [[ -f "$MARQUEEGIF" ]]; then
-       GAMEIMAGE=$MARQUEEGIF
-       echo "File $MARQUEEGIF exists so we'll write it to the LED marquee" >&2
-       USERMESSAGE="Writing LED Marquee for ${GAMEFILENAME}..."
-    else
-       if [[ -f $NEOGEODEFAULT ]]; then
-         GAMEIMAGE=$NEOGEODEFAULT
-         echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
-         USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
-       else
-         GAMEIMAGE=$MAMEDEFAULT
-         echo "File $NEOGEODEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
          USERMESSAGE="Writing Generic LED Marquee..."
        fi
      fi
@@ -671,7 +659,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
         echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
       else
-        GAMEIMAGE=$MAMEDEFAULT
+        GAMEIMAGE=$ARCADEDEFAULT
         echo "File $NGPCDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee..."
       fi
@@ -690,7 +678,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
         echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
       else
-        GAMEIMAGE=$MAMEDEFAULT
+        GAMEIMAGE=$ARCADEDEFAULT
         echo "File $NGPDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee..."
       fi
@@ -709,7 +697,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
         echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
       else
-        GAMEIMAGE=$MAMEDEFAULT
+        GAMEIMAGE=$ARCADEDEFAULT
         echo "File $N64DEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee..."
       fi
@@ -728,7 +716,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
         echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
       else
-        GAMEIMAGE=$MAMEDEFAULT
+        GAMEIMAGE=$ARCADEDEFAULT
         echo "File $NESDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee..."
       fi
@@ -747,7 +735,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
         echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
       else
-        GAMEIMAGE=$MAMEDEFAULT
+        GAMEIMAGE=$ARCADEDEFAULT
         echo "File $PCDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee..."
       fi
@@ -766,7 +754,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
         echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
       else
-        GAMEIMAGE=$MAMEDEFAULT
+        GAMEIMAGE=$ARCADEDEFAULT
         echo "File $PCENGINEDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee..."
       fi
@@ -786,7 +774,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
         echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
       else
-        GAMEIMAGE=$MAMEDEFAULT
+        GAMEIMAGE=$ARCADEDEFAULT
         echo "File $PSXDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee..."
       fi
@@ -805,7 +793,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
         echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
       else
-        GAMEIMAGE=$MAMEDEFAULT
+        GAMEIMAGE=$ARCADEDEFAULT
         echo "File $PSPDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee..."
       fi
@@ -824,7 +812,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
         echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
       else
-        GAMEIMAGE=$MAMEDEFAULT
+        GAMEIMAGE=$ARCADEDEFAULT
         echo "File $SATURNDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee..."
       fi
@@ -844,7 +832,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
         echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
       else
-        GAMEIMAGE=$MAMEDEFAULT
+        GAMEIMAGE=$ARCADEDEFAULT
         echo "File $SEGA32XDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee..."
       fi
@@ -863,7 +851,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
         echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
       else
-        GAMEIMAGE=$MAMEDEFAULT
+        GAMEIMAGE=$ARCADEDEFAULT
         echo "File $SEGACDDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee..."
       fi
@@ -882,7 +870,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
         echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
       else
-        GAMEIMAGE=$MAMEDEFAULT
+        GAMEIMAGE=$ARCADEDEFAULT
         echo "File $SG1000DEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee..."
       fi
@@ -901,7 +889,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
         echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
       else
-        GAMEIMAGE=$MAMEDEFAULT
+        GAMEIMAGE=$ARCADEDEFAULT
         echo "File $SNESDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee..."
       fi
@@ -920,7 +908,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
         echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
       else
-        GAMEIMAGE=$MAMEDEFAULT
+        GAMEIMAGE=$ARCADEDEFAULT
         echo "File $TI99DEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee..."
       fi
@@ -939,7 +927,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
         echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
       else
-        GAMEIMAGE=$MAMEDEFAULT
+        GAMEIMAGE=$ARCADEDEFAULT
         echo "File $VIDEOPACDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee..."
       fi
@@ -959,7 +947,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
         echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
       else
-        GAMEIMAGE=$MAMEDEFAULT
+        GAMEIMAGE=$ARCADEDEFAULT
         echo "File $WONDERSWANDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee..."
       fi
@@ -978,7 +966,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
         echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
       else
-        GAMEIMAGE=$MAMEDEFAULT
+        GAMEIMAGE=$ARCADEDEFAULT
         echo "File $WONDERSWANCOLORDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee..."
       fi
@@ -997,7 +985,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
         echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
       else
-        GAMEIMAGE=$MAMEDEFAULT
+        GAMEIMAGE=$ARCADEDEFAULT
         echo "File $VECTREXDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee..."
       fi
@@ -1016,7 +1004,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
         echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
       else
-        GAMEIMAGE=$MAMEDEFAULT
+        GAMEIMAGE=$ARCADEDEFAULT
         echo "File $VIRTUALBOYDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee..."
       fi
@@ -1035,7 +1023,7 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
         echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
       else
-        GAMEIMAGE=$MAMEDEFAULT
+        GAMEIMAGE=$ARCADEDEFAULT
         echo "File $ZMACHINEDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee..."
       fi
@@ -1054,13 +1042,13 @@ if $pixelexists | grep -q '/dev/ttyACM0'; then  #let's only go here if we detect
         echo "File $MARQUEEGIF DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee for the ${PLATFORM} Emulator..."
       else
-        GAMEIMAGE=$MAMEDEFAULT
+        GAMEIMAGE=$ARCADEDEFAULT
         echo "File $ZXSPECTRUMDEFAULT DOES NOT exist, defaulting to generic LED marquee: ${GAMEIMAGE}" >&2
         USERMESSAGE="Writing Generic LED Marquee..."
       fi
    fi
   fi
-  
+
    #now we're done, let's call the code to write the LED marquee image
    # but let's first check if the current gif is the same as the newly selected one and if yes, we'll skip the write to save time
 
