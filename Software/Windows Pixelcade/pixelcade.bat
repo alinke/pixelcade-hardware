@@ -18,10 +18,114 @@ IF EXIST settings.ini (
   EXIT /B
 )
 
-set CONSOLE=%1
+set CONSOLE=%~1
 set GAMENAME=%~2
 SET WORKINGPATH=%~dp0
 set USERMESSAGE=""
+
+REM ******* Mapping Table needed for Hyperspin ***************************
+rem echo deleteme %CONSOLE%
+IF %CONSOLE%=="MAME" set CONSOLE=mame
+
+IF %CONSOLE%=="Amstrad CPC" set CONSOLE=amstradcpc
+IF %CONSOLE%=="Amstrad GX4000" set CONSOLE=amstradcpc
+IF %CONSOLE%=="Apple II" set CONSOLE=apple2
+IF %CONSOLE%=="Apple IIGS" set CONSOLE=apple2
+IF %CONSOLE%=="Atari 2600" set CONSOLE=atari2600
+IF %CONSOLE%=="Atari 5200" set CONSOLE=atari5200
+IF %CONSOLE%=="Atari 7800" set CONSOLE=atari7800
+IF %CONSOLE%=="Atari Jaguar" set CONSOLE=atarijaguar
+IF %CONSOLE%=="Atari Jaguar CD" set CONSOLE=atarijaguar
+IF %CONSOLE%=="Atari Lynx" set CONSOLE=atarilynx
+IF %CONSOLE%=="Bandai Super Vision 8000" set CONSOLE=wonderswan
+IF %CONSOLE%=="Bandai WonderSwan" set CONSOLE=wonderswan
+IF %CONSOLE%=="Bandai WonderSwan Color" set CONSOLE=wonderswancolor
+IF %CONSOLE%=="Capcom Classics" set CONSOLE=capcom
+IF %CONSOLE%=="Capcom Play System" set CONSOLE=capcom
+IF %CONSOLE%=="Capcom Play System II" set CONSOLE=capcom
+IF %CONSOLE%=="Capcom Play System III" set CONSOLE=capcom
+IF %CONSOLE%=="ColecoVision" set CONSOLE=coleco
+IF %CONSOLE%=="Commodore 128" set CONSOLE=c64
+IF %CONSOLE%=="Commodore 16 & Plus4" set CONSOLE=c64
+IF %CONSOLE%=="Commodore 64" set CONSOLE=c64
+IF %CONSOLE%=="Commodore Amiga" set CONSOLE=amiga
+IF %CONSOLE%=="Commodore Amiga CD32" set CONSOLE=amiga
+IF %CONSOLE%=="Commodore VIC-20" set CONSOLE=c64
+IF %CONSOLE%=="Daphne" set CONSOLE=daphne
+IF %CONSOLE%=="Final Burn Alpha" set CONSOLE=fba
+IF %CONSOLE%=="Future Pinball" set CONSOLE=futurepinball
+IF %CONSOLE%=="GCE Vectrex" set CONSOLE=vectrex
+IF %CONSOLE%=="Magnavox Odyssey" set CONSOLE=odyssey
+IF %CONSOLE%=="Magnavox Odyssey 2" set CONSOLE=odyssey
+IF %CONSOLE%=="Mattel Intellivision" set CONSOLE=intellivision
+IF %CONSOLE%=="Microsoft MSX" set CONSOLE=msx
+IF %CONSOLE%=="Microsoft MSX2" set CONSOLE=msx
+IF %CONSOLE%=="Microsoft MSX2+" set CONSOLE=msx
+IF %CONSOLE%=="Microsoft Windows 3.x" set CONSOLE=pc
+IF %CONSOLE%=="MiSFiT MAME" set CONSOLE=mame
+IF %CONSOLE%=="NEC PC Engine" set CONSOLE=pcengine
+IF %CONSOLE%=="NEC PC Engine-CD" set CONSOLE=pcengine
+IF %CONSOLE%=="NEC PC-8801" set CONSOLE=pcengine
+IF %CONSOLE%=="NEC PC-9801" set CONSOLE=pcengine
+IF %CONSOLE%=="NEC PC-FX" set CONSOLE=pcengine
+IF %CONSOLE%=="NEC SuperGrafx" set CONSOLE=pcengine
+IF %CONSOLE%=="NEC TurboGrafx-16" set CONSOLE=pcengine
+IF %CONSOLE%=="NEC TurboGrafx-CD" set CONSOLE=pcengine
+IF %CONSOLE%=="Nintendo 64" set CONSOLE=n64
+IF %CONSOLE%=="Nintendo 64DD" set CONSOLE=n64
+IF %CONSOLE%=="Nintendo Entertainment System" set CONSOLE=nes
+IF %CONSOLE%=="Nintendo Famicom" set CONSOLE=nes
+IF %CONSOLE%=="Nintendo Famicom Disk System" set CONSOLE=nes
+IF %CONSOLE%=="Nintendo Game Boy" set CONSOLE=gb
+IF %CONSOLE%=="Nintendo Game Boy Advance" set CONSOLE=gba
+IF %CONSOLE%=="Nintendo Game Boy Color" set CONSOLE=gbc
+IF %CONSOLE%=="Nintendo GameCube" set CONSOLE=nes
+IF %CONSOLE%=="Nintendo Pokemon Mini" set CONSOLE=nes
+IF %CONSOLE%=="Nintendo Satellaview" set CONSOLE=nes
+IF %CONSOLE%=="Nintendo Super Famicom" set CONSOLE=nes
+IF %CONSOLE%=="Nintendo Super Game Boy" set CONSOLE=nes
+IF %CONSOLE%=="Nintendo Virtual Boy" set CONSOLE=nes
+IF %CONSOLE%=="Nintendo Wii" set CONSOLE=nes
+IF %CONSOLE%=="Nintendo Wii U" set CONSOLE=nes
+IF %CONSOLE%=="Nintendo WiiWare" set CONSOLE=nes
+IF %CONSOLE%=="Panasonic 3DO" set CONSOLE=3do
+IF %CONSOLE%=="PC Games" set CONSOLE=pc
+IF %CONSOLE%=="Pinball FX2" set CONSOLE=futurepinball
+IF %CONSOLE%=="Sega 32X" set CONSOLE=sega32x
+IF %CONSOLE%=="Sega CD" set CONSOLE=segacd
+IF %CONSOLE%=="Sega Classics" set CONSOLE=sega32x
+IF %CONSOLE%=="Sega Dreamcast" set CONSOLE=dreamcast
+IF %CONSOLE%=="Sega Game Gear" set CONSOLE=gamegear
+IF %CONSOLE%=="Sega Genesis" set CONSOLE=genesis
+IF %CONSOLE%=="Sega Hikaru" set CONSOLE=sega32x
+IF %CONSOLE%=="Sega Master System" set CONSOLE=mastersystem
+IF %CONSOLE%=="Sega Model 2" set CONSOLE=sega32x
+IF %CONSOLE%=="Sega Model 3" set CONSOLE=sega32x
+IF %CONSOLE%=="Sega Naomi" set CONSOLE=sega32x
+IF %CONSOLE%=="Sega Pico" set CONSOLE=sega32x
+IF %CONSOLE%=="Sega Saturn" set CONSOLE=saturn
+IF %CONSOLE%=="Sega SC-3000" set CONSOLE=sega32x
+IF %CONSOLE%=="Sega SG-1000" set CONSOLE=sega32x
+IF %CONSOLE%=="Sega ST-V" set CONSOLE=sega32x
+IF %CONSOLE%=="Sega Triforce" set CONSOLE=sega32x
+IF %CONSOLE%=="Sega VMU" set CONSOLE=sega32x
+IF %CONSOLE%=="Sinclair ZX Spectrum" set CONSOLE=zxspectrum
+IF %CONSOLE%=="Sinclair ZX81" set CONSOLE=zxspectrum
+IF %CONSOLE%=="SNK Classics" set CONSOLE=neogeo
+IF %CONSOLE%=="SNK Neo Geo AES" set CONSOLE=neogeo
+IF %CONSOLE%=="SNK Neo Geo CD" set CONSOLE=neogeo
+IF %CONSOLE%=="SNK Neo Geo MVS" set CONSOLE=neogeo
+IF %CONSOLE%=="SNK Neo Geo Pocket" set CONSOLE=ngp
+IF %CONSOLE%=="SNK Neo Geo Pocket Color" set CONSOLE=ngpc
+IF %CONSOLE%=="Sony PlayStation" set CONSOLE=psx
+IF %CONSOLE%=="Sony PlayStation 2" set CONSOLE=ps2
+IF %CONSOLE%=="Sony PocketStation" set CONSOLE=psp
+IF %CONSOLE%=="Sony PSP" set CONSOLE=psp
+IF %CONSOLE%=="Sony PSP Minis" set CONSOLE=psp
+IF %CONSOLE%=="Super Nintendo Entertainment System" set CONSOLE=snes
+IF %CONSOLE%=="Visual Pinball" set CONSOLE=visualpinball
+IF %CONSOLE%=="Zinc" set CONSOLE=zinc
+REM ****************************************************************
 
 REM ******Set the Default Console Marquees *************************
 
@@ -33,6 +137,7 @@ IF %CONSOLE%==3do set CONSOLEDEFAULT=default-3do.gif
 IF %CONSOLE%==amiga set CONSOLEDEFAULT=default-amiga.gif
 IF %CONSOLE%==amstradcpc set CONSOLEDEFAULT=default-amstradcpc.gif
 IF %CONSOLE%==apple2 set CONSOLEDEFAULT=default-apple2.gif
+IF %CONSOLE%==arcade set CONSOLEDEFAULT=default-arcade.gif
 IF %CONSOLE%==atari800 set CONSOLEDEFAULT=default-atari800.gif
 IF %CONSOLE%==atari2600 set CONSOLEDEFAULT=default-atari2600.gif
 IF %CONSOLE%==atari5200 set CONSOLEDEFAULT=default-atari5200.gif
@@ -66,6 +171,7 @@ IF %CONSOLE%==n64 set CONSOLEDEFAULT=default-n64.gif
 IF %CONSOLE%==nes set CONSOLEDEFAULT=default-nes.gif
 IF %CONSOLE%==odyssey set CONSOLEDEFAULT=default-odyssey.gif
 IF %CONSOLE%==pc set CONSOLEDEFAULT=default-pc.gif
+IF %CONSOLE%==pcengine set CONSOLEDEFAULT=default-pcengine.gif
 IF %CONSOLE%==psx set CONSOLEDEFAULT=default-psx.gif
 IF %CONSOLE%==ps2 set CONSOLEDEFAULT=default-ps2.gif
 IF %CONSOLE%==psp set CONSOLEDEFAULT=default-psp.gif
@@ -74,7 +180,6 @@ IF %CONSOLE%==sega32x set CONSOLEDEFAULT=default-sega32x.gif
 IF %CONSOLE%==segacd set CONSOLEDEFAULT=default-segacd.gif
 IF %CONSOLE%==sg-1000 set CONSOLEDEFAULT=default-sg-1000.gif
 IF %CONSOLE%==snes set CONSOLEDEFAULT=default-snes.gif
-IF %CONSOLE%==pcengine set CONSOLEDEFAULT=default-pcengine.gif
 IF %CONSOLE%==ti99 set CONSOLEDEFAULT=default-ti99.gif
 IF %CONSOLE%==wonderswan set CONSOLEDEFAULT=default-wonderswan.gif
 IF %CONSOLE%==wonderswancolor set CONSOLEDEFAULT=default-wonderswancolor.gif
@@ -123,4 +228,4 @@ echo %USERMESSAGE%
 echo pixelc.exe --port=%port_% --gif="%GAMEMARQUEE%" --%ledResolution_% --write 
 pixelc.exe --port=%port_% --gif="%GAMEMARQUEE%" --%ledResolution_% --write 
 REM possible to do, the java code coud run without a port the first time and then write the detected port to a .txt file. if port not specified here, could read this file as a backup
-
+pause

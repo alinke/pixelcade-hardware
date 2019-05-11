@@ -19,7 +19,8 @@ IF EXIST settings.ini (
 )
 
 set CONSOLE=mame
-set "GAMENAME=c:\max 2.10\pixelcade\dummy999.bin"
+REM set "GAMENAME=c:\max 2.10\pixelcade\dummy999.bin"
+set "GAMENAME=1941.gif
 SET WORKINGPATH=%~dp0
 set USERMESSAGE=""
 
