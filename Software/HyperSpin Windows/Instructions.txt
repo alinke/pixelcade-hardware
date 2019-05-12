@@ -1,3 +1,0 @@
-1. Copy Global.ahk to RocketLaunch Install Dir\Lib\User Functions
-2. Install pixelcade software
-3. Edit Global.ahk and correct path to pixelcade

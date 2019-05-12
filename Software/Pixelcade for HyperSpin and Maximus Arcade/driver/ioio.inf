@@ -1,0 +1,59 @@
+[Version]
+Signature="$Windows NT$"
+ClassGuid={4D36E978-E325-11CE-BFC1-08002BE10318}
+CatalogFile=%MFGFILENAME%.cat
+Provider=%MFGNAME%
+Class=Ports
+LayoutFile=layout.inf
+DriverVer=03/11/2010,5.1.2600.2
+[Manufacturer]
+%MFGNAME%=DeviceList, NTamd64
+[DriverInstall.nt]
+AddReg=DriverInstall.nt.AddReg
+CopyFiles=DriverCopyFiles.nt
+include=mdmcpq.inf
+[DriverInstall.nt.AddReg]
+HKR,,NTMPDriver,,%DRIVERFILENAME%.sys=HKR,,NTMPDriver,,%DRIVERFILENAME%.sys
+HKR,,DevLoader,,*ntkern=HKR,,DevLoader,,*ntkern
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"=HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+[DriverInstall.NTamd64]
+AddReg=DriverInstall.NTamd64.AddReg
+CopyFiles=DriverCopyFiles.NTamd64
+include=mdmcpq.inf
+[DriverInstall.NTamd64.AddReg]
+HKR,,NTMPDriver,,%DRIVERFILENAME%.sys=HKR,,NTMPDriver,,%DRIVERFILENAME%.sys
+HKR,,DevLoader,,*ntkern=HKR,,DevLoader,,*ntkern
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"=HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+[DriverService.nt]
+DisplayName=%SERVICE%
+ErrorControl=1
+StartType=3
+ServiceBinary=%12%\%DRIVERFILENAME%.sys
+ServiceType=1
+[DriverService.NTamd64]
+DisplayName=%SERVICE%
+ErrorControl=1
+ServiceBinary=%12%\%DRIVERFILENAME%.sys
+ServiceType=1
+StartType=3
+[DriverInstall.nt.Services]
+AddService=usbser, 0x00000002, DriverService.nt
+[DriverInstall.NTamd64.Services]
+AddService=usbser, 0x00000002, DriverService.NTamd64
+[DriverCopyFiles.nt]
+usbser.sys,,,0x20=usbser.sys,,,0x20
+[Strings]
+MFGFILENAME="PIXEL"
+MFGNAME="PIXEL LED ART"
+DESCRIPTION="PIXEL-LED"
+DRIVERFILENAME="usbser"
+INSTDISK="PIXEL Installation Disc"
+SERVICE="I/O Interface"
+[DriverCopyFiles.NTamd64]
+%DRIVERFILENAME%.sys,,,0x20=%DRIVERFILENAME%.sys,,,0x20
+[DeviceList]
+%DESCRIPTION%=DriverInstall, USB\VID_1B4F&PID_0008
+[DeviceList.NTamd64]
+%DESCRIPTION%=DriverInstall, USB\VID_1B4F&PID_0008
+[DestinationDirs]
+DefaultDestDir=12
