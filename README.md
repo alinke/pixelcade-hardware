@@ -8,3 +8,5 @@ Vertical Arcade Build Instructions ==>https://www.instructables.com/id/Vertical-
 Horizontal Arcade Build Instructions ==> https://www.instructables.com/id/PIXELCADE-Mini-Bartop-Arcade-With-Integrated-PIXEL/
 
 Special thanks to Tobias on Instructables https://www.instructables.com/id/Mini-Pi-Powered-Arcade-Machine/ for creating the original laser cut design for this project.
+
+This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License https://creativecommons.org/licenses/by-nc/4.0/
