@@ -1,5 +1,5 @@
 # PIXELCADE
-An LED Matrix Marquee for Arcade, more at http://ledpixelart.com/pixelcade
+An LED Matrix Marquee for Arcades that integrates with RetroPie, HyperSpin, and Maximus Arcade. More at http://ledpixelart.com/pixelcade
 
 Laser Cutting and Software Scripts for Pixelcade - A Mini Bartop Arcade Machine with Integrated PIXEL: LED ART Display
 
