@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<DOCUMENT Type="Advanced Installer" CreateVersion="11.2.1" version="11.2.1" Modules="enterprise" RootPath="." Language="en" Id="{43362A74-B5C8-4503-8F8D-4086E058BE80}">
+<DOCUMENT Type="Advanced Installer" CreateVersion="11.2.1" version="15.0" Modules="enterprise" RootPath="." Language="en" Id="{43362A74-B5C8-4503-8F8D-4086E058BE80}">
+  <COMPONENT cid="caphyon.advinst.msicomp.ProjectOptionsComponent">
+    <ROW Name="HiddenItems" Value="AppXAppDetailsComponent;AppXCapabilitiesComponent;AppXDependenciesComponent;AppXProductDetailsComponent;AppXVisualAssetsComponent;AppXAppDeclarationsComponent;AppXUriRulesComponent"/>
+  </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
     <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
     <ROW Property="AI_BackgroundColor" Value="lightblue" MultiBuildValue="DefaultBuild:mirage" MsiKey="AI_BackgroundColor"/>
@@ -10,19 +13,29 @@
     <ROW Property="ALLUSERS" Value="1"/>
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="ARPHELPLINK" Value="https://www.facebook.com/pixelsupport/"/>
+    <ROW Property="ARPNOREPAIR" MultiBuildValue="DefaultBuild:1"/>
     <ROW Property="ARPPRODUCTICON" Value="gumball.exe" Type="8"/>
     <ROW Property="ARPURLINFOABOUT" Value="http://ledpixelart.com/pixelcade"/>
+    <ROW Property="AiFeatIcoioio" Value="system.exe" Type="8"/>
     <ROW Property="Manufacturer" Value="Creative Arts and Technology"/>
     <ROW Property="ProductCode" Value="1033:{D43FB137-EB0A-4845-818C-582445DF268A} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="Pixelcade LED Marquee"/>
-    <ROW Property="ProductVersion" Value="1.5.0" Type="32"/>
+    <ROW Property="ProductVersion" Value="1.5.3" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
     <ROW Property="UpgradeCode" Value="{782AE08E-DE34-4CA4-AB36-0DBDBDCBDE98}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
     <ROW Property="WindowsType9XDisplay" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT" MultiBuildValue="DefaultBuild:Windows 10 x86" ValueLocId="-"/>
     <ROW Property="WindowsTypeNT40" MultiBuildValue="DefaultBuild:Windows NT 4.0" ValueLocId="-"/>
     <ROW Property="WindowsTypeNT40Display" MultiBuildValue="DefaultBuild:Windows NT 4.0" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT50" MultiBuildValue="DefaultBuild:Windows 2000" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT50Display" MultiBuildValue="DefaultBuild:Windows 2000" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT5X" MultiBuildValue="DefaultBuild:Windows XP/2003 RTM, Windows XP/2003 SP1, Windows XP SP2 x86" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT5XDisplay" MultiBuildValue="DefaultBuild:Windows XP/2003 RTM, Windows XP/2003 SP1, Windows XP SP2 x86" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT64" MultiBuildValue="DefaultBuild:Windows 10 x64" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT64Display" MultiBuildValue="DefaultBuild:Windows 10 x64" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNTDisplay" MultiBuildValue="DefaultBuild:Windows 10 x86" ValueLocId="-"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiDirsComponent">
     <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
@@ -72,7 +85,6 @@
     <ROW Directory="icons_Dir" Directory_Parent="APPDIR" DefaultDir="icons"/>
     <ROW Directory="images_Dir" Directory_Parent="lib_Dir" DefaultDir="images"/>
     <ROW Directory="intellivision_Dir" Directory_Parent="APPDIR" DefaultDir="INTELL~1|intellivision"/>
-    <ROW Directory="ioio_Dir" Directory_Parent="APPDIR" DefaultDir="ioio"/>
     <ROW Directory="jar_Dir" Directory_Parent="APPDIR" DefaultDir="jar"/>
     <ROW Directory="jfr_Dir" Directory_Parent="lib_Dir" DefaultDir="jfr"/>
     <ROW Directory="jre_Dir" Directory_Parent="APPDIR" DefaultDir="jre"/>
@@ -251,11 +263,11 @@
     <ROW Component="gitkeep_9" ComponentId="{FF76DA9A-607F-4772-9849-079AA098D6A8}" Directory_="atarijaguar_Dir" Attributes="0" KeyPath="gitkeep_9" Type="0"/>
     <ROW Component="glass.dll" ComponentId="{6BF9869E-F337-465A-9539-4FBCE9449F35}" Directory_="bin_Dir" Attributes="0" KeyPath="glass.dll"/>
     <ROW Component="gliblite.dll" ComponentId="{770C6374-2A93-45CB-9555-636B8DCBD1D1}" Directory_="bin_Dir" Attributes="0" KeyPath="gliblite.dll"/>
-    <ROW Component="gpl2.0.txt" ComponentId="{38BEC997-9EE6-484C-8613-BBBDDDEFAD07}" Directory_="driver_Dir" Attributes="0" KeyPath="gpl2.0.txt" Type="0"/>
+    <ROW Component="gpl2.0.txt" ComponentId="{8E79403D-48D6-4622-BDE9-090BDD780AC0}" Directory_="driver_Dir" Attributes="0" KeyPath="gpl2.0.txt" Type="0"/>
     <ROW Component="gstreamerlite.dll" ComponentId="{B281CBA6-E3F3-467F-9A49-E66288D8ECE3}" Directory_="bin_Dir" Attributes="0" KeyPath="gstreamerlite.dll"/>
     <ROW Component="hprof.dll" ComponentId="{C93433CC-9FAA-48A4-8F4B-EFB25E88C137}" Directory_="bin_Dir" Attributes="0" KeyPath="hprof.dll"/>
     <ROW Component="instrument.dll" ComponentId="{A81706D6-3334-494B-85CA-EFFA4505B725}" Directory_="bin_Dir" Attributes="0" KeyPath="instrument.dll"/>
-    <ROW Component="ioio.inf_1" ComponentId="{75646D70-9504-4EA5-A735-9ADD20CCDEF0}" Directory_="ioio_Dir" Attributes="0" Condition="VersionNT &lt; 1000" KeyPath="ioio.inf"/>
+    <ROW Component="ioio.inf" ComponentId="{C8BF6A30-4B44-4134-8F9B-6E6D4B54D1E0}" Directory_="driver_Dir" Attributes="0" Condition="(VersionNT = 601 AND MsiNTProductType = 1) or (VersionNT = 600 AND MsiNTProductType &lt;&gt; 1) or (VersionNT = 600 AND MsiNTProductType = 1) or (VersionNT = 502) or (VersionNT = 501)" KeyPath="ioio.inf"/>
     <ROW Component="j2pcsc.dll" ComponentId="{6EE3E492-B535-47FB-BA5B-9D42A69C14F3}" Directory_="bin_Dir" Attributes="0" KeyPath="j2pcsc.dll"/>
     <ROW Component="j2pkcs11.dll" ComponentId="{34F421C4-14D6-4256-9EFC-AA49FAB80DE9}" Directory_="bin_Dir" Attributes="0" KeyPath="j2pkcs11.dll"/>
     <ROW Component="jaas_nt.dll" ComponentId="{A07257F5-AAFE-43EC-BF02-AFAE42CDDC83}" Directory_="bin_Dir" Attributes="0" KeyPath="jaas_nt.dll"/>
@@ -339,8 +351,7 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
     <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="3" Level="1" Directory_="APPDIR" Attributes="0" Components="AI_ExePath AtariAgeHolidayCart.gif AtariAgeHolidayCart.rgb565 CIEXYZ.pf COPYRIGHT Centipede1987Atari.gif DS_Store DS_Store_1 DavidCranesPitfallIILostCavernsUSA.rgb56 Global.ahk JAWTAccessBridge.dll JavaAccessBridge.dll LucidaBrightDemiBold.ttf MatManiaChallenge1989Atari.rgb565 ProductInformation SHORTCUTDIR VCSongCartridgeTheMadBoogyGermanyAlt1Pro WindowsAccessBridge.dll YardFightUSAEurope.rgb565 accessbridge.jar accessibility.properties apimswincoreconsolel110.dll apimswincoredatetimel110.dll apimswincoredebugl110.dll apimswincoreerrorhandlingl110.dll apimswincorefilel110.dll apimswincorefilel120.dll apimswincorefilel210.dll apimswincorehandlel110.dll apimswincoreheapl110.dll apimswincoreinterlockedl110.dll apimswincorelibraryloaderl110.dll apimswincorelocalizationl120.dll apimswincorememoryl110.dll apimswincorenamedpipel110.dll apimswincoreprocessenvironmentl110.dll apimswincoreprocessthreadsl110.dll apimswincoreprocessthreadsl111.dll apimswincoreprofilel110.dll apimswincorertlsupportl110.dll apimswincorestringl110.dll apimswincoresynchl110.dll apimswincoresynchl120.dll apimswincoresysinfol110.dll apimswincoretimezonel110.dll apimswincoreutill110.dll apimswincrtconiol110.dll apimswincrtconvertl110.dll apimswincrtenvironmentl110.dll apimswincrtfilesysteml110.dll apimswincrtheapl110.dll apimswincrtlocalel110.dll apimswincrtmathl110.dll apimswincrtmultibytel110.dll apimswincrtprivatel110.dll apimswincrtprocessl110.dll apimswincrtruntimel110.dll apimswincrtstdiol110.dll apimswincrtstringl110.dll apimswincrttimel110.dll apimswincrtutilityl110.dll applicationseducationmathematics.ico awt.dll bci.dll blacklist classes.jsa commonscodec1.10.jar concrt140.dll cursors.properties dcpr.dll decora_sse.dll default.jfc deploy.dll deployJava1.dll do.bat dt_shmem.dll dt_socket.dll eula.dll ffjcext.zip fontmanager.dll fxplugins.dll gitkeep gitkeep_10 gitkeep_11 gitkeep_12 gitkeep_13 gitkeep_14 gitkeep_15 gitkeep_16 gitkeep_17 gitkeep_18 gitkeep_19 gitkeep_20 gitkeep_21 gitkeep_22 gitkeep_23 gitkeep_24 gitkeep_25 gitkeep_26 gitkeep_27 gitkeep_28 gitkeep_29 gitkeep_30 gitkeep_31 gitkeep_32 gitkeep_33 gitkeep_34 gitkeep_35 gitkeep_36 gitkeep_37 gitkeep_38 gitkeep_39 gitkeep_4 gitkeep_40 gitkeep_41 gitkeep_42 gitkeep_43 gitkeep_44 gitkeep_45 gitkeep_46 gitkeep_47 gitkeep_48 gitkeep_49 gitkeep_5 gitkeep_50 gitkeep_51 gitkeep_52 gitkeep_53 gitkeep_54 gitkeep_6 gitkeep_7 gitkeep_8 gitkeep_9 glass.dll gliblite.dll gpl2.0.txt gstreamerlite.dll hprof.dll instrument.dll j2pcsc.dll j2pkcs11.dll jaas_nt.dll jabswitch.exe java.dll java.exe java_crw_demo.dll javacpl.cpl javacpl.exe javafx_font.dll javafx_font_t2k.dll javafx_iio.dll javarmi.exe javaw.exe javaws.exe jawt.dll jdwp.dll jfr.dll jfxmedia.dll jfxwebkit.dll jjs.exe jli.dll jmxremote.access jp2iexp.dll jp2launcher.exe jp2native.dll jp2ssv.dll jpeg.dll jsdt.dll jsound.dll jsoundds.dll jvm.cfg jvm.dll kcms.dll keytool.exe kinit.exe klist.exe ktab.exe lcms.dll local_policy.jar local_policy.jar_3 management.dll mlib_image.dll msvcp140.dll msvcr100.dll msvcr100.dll_3 net.dll nio.dll npdeployJava1.dll npjp2.dll npt.dll orbd.exe pack200.exe pixelc.exe pixelcadeconfig.exe pixelcadetest.bat policytool.exe prism_common.dll prism_d3d.dll prism_sw.dll resource.dll rgb565 rmid.exe rmiregistry.exe servertool.exe splashscreen.dll ssv.dll ssvagent.exe sunec.dll sunmscapi.dll t2k.dll tnameserv.exe ucrtbase.dll unpack.dll unpack200.exe vcruntime140.dll verify.dll w2k_lsa_auth.dll wsdetect.dll zip.dll"/>
-    <ROW Feature="PIXELDRIVER" Title="PIXEL-DRIVER" Description="Only install this for Windows 7, driver not needed on Win 10" Display="5" Level="4" Directory_="APPDIR" Attributes="0"/>
-    <ROW Feature="ioio" Feature_Parent="PIXELDRIVER" Title="ioio" Description="Description" Display="3" Level="1" Directory_="APPDIR" Attributes="0" Components="ioio.inf_1"/>
+    <ROW Feature="ioio" Title="ioio" Description="PIXEL-BOARD-DRIVER, do not install if windows 10 as win 10 already has a driver built in" Display="5" Level="1" Attributes="0" Components="ioio.inf"/>
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
@@ -543,6 +554,7 @@
     <ROW File="currency.data" Component_="accessibility.properties" FileName="CURREN~1.DAT|currency.data" Attributes="0" SourcePath="..\installer source\pixelcade\jre\lib\currency.data" SelfReg="false" NextFile="ffjcext.zip"/>
     <ROW File="cursors.properties" Component_="cursors.properties" FileName="CURSOR~1.PRO|cursors.properties" Attributes="0" SourcePath="..\installer source\pixelcade\jre\lib\images\cursors\cursors.properties" SelfReg="false" NextFile="invalid32x32.gif"/>
     <ROW File="daphne.bat" Component_="do.bat" FileName="daphne.bat" Attributes="0" SourcePath="..\installer source\pixelcade\daphne.bat" SelfReg="false" NextFile="default.bat"/>
+    <ROW File="daphneclose.bat" Component_="do.bat" FileName="DAPHNE~1.BAT|daphne-close.bat" Attributes="0" SourcePath="..\installer source\pixelcade\daphne-close.bat" SelfReg="false"/>
     <ROW File="dcpr.dll" Component_="dcpr.dll" FileName="dcpr.dll" Attributes="0" SourcePath="..\installer source\pixelcade\jre\bin\dcpr.dll" SelfReg="false" NextFile="decora_sse.dll"/>
     <ROW File="decora_sse.dll" Component_="decora_sse.dll" FileName="DECORA~1.DLL|decora_sse.dll" Attributes="0" SourcePath="..\installer source\pixelcade\jre\bin\decora_sse.dll" SelfReg="false" NextFile="deploy.dll"/>
     <ROW File="default.bat" Component_="do.bat" FileName="default.bat" Attributes="0" SourcePath="..\installer source\pixelcade\default.bat" SelfReg="false" NextFile="default3do.gif"/>
@@ -739,7 +751,7 @@
     <ROW File="gitkeep_12" Component_="gitkeep_12" FileName="GITKEE~1|.gitkeep" Attributes="0" SourcePath="..\installer source\pixelcade\capcom\.gitkeep" SelfReg="false" NextFile="gitkeep_13"/>
     <ROW File="gitkeep_13" Component_="gitkeep_13" FileName="GITKEE~1|.gitkeep" Attributes="0" SourcePath="..\installer source\pixelcade\coleco\.gitkeep" SelfReg="false" NextFile="gitkeep_14"/>
     <ROW File="gitkeep_14" Component_="gitkeep_14" FileName="GITKEE~1|.gitkeep" Attributes="0" SourcePath="..\installer source\pixelcade\daphne\.gitkeep" SelfReg="false" NextFile="DS_Store"/>
-    <ROW File="gitkeep_15" Component_="gitkeep_15" FileName="GITKEE~1|.gitkeep" Attributes="0" SourcePath="..\installer source\pixelcade\dreamcast\.gitkeep" SelfReg="false" NextFile="gpl2.0.txt"/>
+    <ROW File="gitkeep_15" Component_="gitkeep_15" FileName="GITKEE~1|.gitkeep" Attributes="0" SourcePath="..\installer source\pixelcade\dreamcast\.gitkeep" SelfReg="false" NextFile="gitkeep_16"/>
     <ROW File="gitkeep_16" Component_="gitkeep_16" FileName="GITKEE~1|.gitkeep" Attributes="0" SourcePath="..\installer source\pixelcade\fba\.gitkeep" SelfReg="false" NextFile="gitkeep_17"/>
     <ROW File="gitkeep_17" Component_="gitkeep_17" FileName="GITKEE~1|.gitkeep" Attributes="0" SourcePath="..\installer source\pixelcade\fds\.gitkeep" SelfReg="false" NextFile="gitkeep_18"/>
     <ROW File="gitkeep_18" Component_="gitkeep_18" FileName="GITKEE~1|.gitkeep" Attributes="0" SourcePath="..\installer source\pixelcade\futurepinball\.gitkeep" SelfReg="false" NextFile="gitkeep_19"/>
@@ -780,7 +792,7 @@
     <ROW File="gitkeep_51" Component_="gitkeep_51" FileName="GITKEE~1|.gitkeep" Attributes="0" SourcePath="..\installer source\pixelcade\wonderswancolor\.gitkeep" SelfReg="false" NextFile="gitkeep_52"/>
     <ROW File="gitkeep_52" Component_="gitkeep_52" FileName="GITKEE~1|.gitkeep" Attributes="0" SourcePath="..\installer source\pixelcade\zinc\.gitkeep" SelfReg="false" NextFile="gitkeep_53"/>
     <ROW File="gitkeep_53" Component_="gitkeep_53" FileName="GITKEE~1|.gitkeep" Attributes="0" SourcePath="..\installer source\pixelcade\zmachine\.gitkeep" SelfReg="false" NextFile="gitkeep_54"/>
-    <ROW File="gitkeep_54" Component_="gitkeep_54" FileName="GITKEE~1|.gitkeep" Attributes="0" SourcePath="..\installer source\pixelcade\zxspectrum\.gitkeep" SelfReg="false" NextFile="ioio.inf"/>
+    <ROW File="gitkeep_54" Component_="gitkeep_54" FileName="GITKEE~1|.gitkeep" Attributes="0" SourcePath="..\installer source\pixelcade\zxspectrum\.gitkeep" SelfReg="false" NextFile="Global.ahk"/>
     <ROW File="gitkeep_6" Component_="gitkeep_6" FileName="GITKEE~1|.gitkeep" Attributes="0" SourcePath="..\installer source\pixelcade\apple2\.gitkeep" SelfReg="false" NextFile="AtariAgeHolidayCart.gif"/>
     <ROW File="gitkeep_7" Component_="gitkeep_7" FileName="GITKEE~1|.gitkeep" Attributes="0" SourcePath="..\installer source\pixelcade\atari5200\.gitkeep" SelfReg="false" NextFile="DavidCranesPitfallIILostCavernsUSA.gif"/>
     <ROW File="gitkeep_8" Component_="gitkeep_8" FileName="GITKEE~1|.gitkeep" Attributes="0" SourcePath="..\installer source\pixelcade\atari800\.gitkeep" SelfReg="false" NextFile="gitkeep_9"/>
@@ -809,8 +821,8 @@
     <ROW File="invaders.gif" Component_="DS_Store_1" FileName="invaders.gif" Attributes="0" SourcePath="..\installer source\pixelcade\mame\invaders.gif" SelfReg="false" NextFile="invadpt2.gif"/>
     <ROW File="invadpt2.gif" Component_="DS_Store_1" FileName="invadpt2.gif" Attributes="0" SourcePath="..\installer source\pixelcade\mame\invadpt2.gif" SelfReg="false" NextFile="jchan.gif"/>
     <ROW File="invalid32x32.gif" Component_="cursors.properties" FileName="INVALI~1.GIF|invalid32x32.gif" Attributes="0" SourcePath="..\installer source\pixelcade\jre\lib\images\cursors\invalid32x32.gif" SelfReg="false" NextFile="win32_CopyDrop32x32.gif"/>
-    <ROW File="ioio.cat" Component_="gpl2.0.txt" FileName="ioio.cat" Attributes="0" SourcePath="..\installer source\pixelcade\driver\ioio.cat" SelfReg="false" NextFile="gitkeep_16"/>
-    <ROW File="ioio.inf" Component_="ioio.inf_1" FileName="ioio.inf" Attributes="0" SourcePath="..\installer source\pixelcade\driver\ioio.inf" SelfReg="false" NextFile="Global.ahk"/>
+    <ROW File="ioio.cat" Component_="gpl2.0.txt" FileName="ioio.cat" Attributes="0" SourcePath="..\installer source\pixelcade\driver\ioio.cat" SelfReg="false" NextFile="ioio.inf"/>
+    <ROW File="ioio.inf" Component_="ioio.inf" FileName="ioio.inf" Attributes="0" SourcePath="..\installer source\pixelcade\driver\ioio.inf" SelfReg="false" NextFile="daphneclose.bat"/>
     <ROW File="j.gif" Component_="DS_Store_1" FileName="1941j.gif" Attributes="0" SourcePath="..\installer source\pixelcade\mame\1941j.gif" SelfReg="false" NextFile="r1.gif"/>
     <ROW File="j.gif_1" Component_="DS_Store_1" FileName="1943j.gif" Attributes="0" SourcePath="..\installer source\pixelcade\mame\1943j.gif" SelfReg="false" NextFile="kai.gif"/>
     <ROW File="j.gif_2" Component_="DS_Store_1" FileName="1944j.gif" Attributes="0" SourcePath="..\installer source\pixelcade\mame\1944j.gif" SelfReg="false" NextFile="xx.gif"/>
@@ -983,7 +995,7 @@
     <ROW File="pcengine.bat" Component_="do.bat" FileName="pcengine.bat" Attributes="0" SourcePath="..\installer source\pixelcade\pcengine.bat" SelfReg="false" NextFile="pixelc.jar"/>
     <ROW File="pitfall2.gif" Component_="DS_Store_1" FileName="pitfall2.gif" Attributes="0" SourcePath="..\installer source\pixelcade\mame\pitfall2.gif" SelfReg="false" NextFile="pitfallu.gif"/>
     <ROW File="pitfallu.gif" Component_="DS_Store_1" FileName="pitfallu.gif" Attributes="0" SourcePath="..\installer source\pixelcade\mame\pitfallu.gif" SelfReg="false" NextFile="qbert.gif"/>
-    <ROW File="pixelc.exe" Component_="pixelc.exe" FileName="pixelc.exe" Attributes="0" SourcePath="..\installer source\pixelcade\pixelc.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="pixelc.exe" Component_="pixelc.exe" FileName="pixelc.exe" Attributes="0" SourcePath="..\installer source\pixelcade\pixelc.exe" SelfReg="false" NextFile="gpl2.0.txt" DigSign="true"/>
     <ROW File="pixelc.jar" Component_="do.bat" FileName="pixelc.jar" Attributes="0" SourcePath="..\installer source\pixelcade\pixelc.jar" SelfReg="false" NextFile="pixelcade.bat"/>
     <ROW File="pixelcade.bat" Component_="do.bat" FileName="PIXELC~1.BAT|pixelcade.bat" Attributes="0" SourcePath="..\installer source\pixelcade\pixelcade.bat" SelfReg="false" NextFile="pixelcadeconfig.exe"/>
     <ROW File="pixelcadeconfig.exe" Component_="pixelcadeconfig.exe" FileName="PIXELC~1.EXE|pixelcade-config.exe" Attributes="0" SourcePath="..\installer source\pixelcade\pixelcade-config.exe" SelfReg="false" NextFile="pixelcadetest.bat" DigSign="true"/>
@@ -1131,9 +1143,11 @@
     <ROW File="zzyzzyx2.gif" Component_="DS_Store_1" FileName="zzyzzyx2.gif" Attributes="0" SourcePath="..\installer source\pixelcade\mame\zzyzzyx2.gif" SelfReg="false" NextFile="zzyzzyxx.gif"/>
     <ROW File="zzyzzyxx.gif" Component_="DS_Store_1" FileName="zzyzzyxx.gif" Attributes="0" SourcePath="..\installer source\pixelcade\mame\zzyzzyxx.gif" SelfReg="false" NextFile="gitkeep_26"/>
   </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.AiPersistentDataComponent">
+    <ROW PersistentRow="defaultmarquee.gif" Type="0" Condition="1"/>
+  </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
     <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="1" Languages="en" InstallationType="4" CabsLocation="1" PackageType="1" FilesInsideExe="true" ExtractionFolder="[AppDataFolder][|Manufacturer]\[|ProductName] [|ProductVersion]\install" ExtUI="true" UseLargeSchema="true"/>
-    <ATTRIBUTE name="CurrentBuild" value="DefaultBuild"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
     <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
@@ -1155,6 +1169,11 @@
     <ROW Fragment="WelcomeDlg.aip" Path="&lt;AI_THEMES&gt;azure\fragments\WelcomeDlg.aip"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiActionTextComponent">
+    <ROW Action="AI_AiBackupImmediate" Description="Preparing backup operation" DescriptionLocId="ActionText.Description.AI_AiBackupImmediate" Template="Path: [1]" TemplateLocId="ActionText.Template.AI_AiBackupImmediate"/>
+    <ROW Action="AI_AiBackupRollback" Description="Rollback backup" DescriptionLocId="ActionText.Description.AI_AiBackupRollback" Template="Path: [1]" TemplateLocId="ActionText.Template.AI_AiBackupRollback"/>
+    <ROW Action="AI_AiRestoreDeferred" Description="Executing restore operation" DescriptionLocId="ActionText.Description.AI_AiRestoreDeferred" Template="Path: [1]" TemplateLocId="ActionText.Template.AI_AiRestoreDeferred"/>
+    <ROW Action="AI_AiRestoreDeferredImpersonate" Description="Executing restore operation" DescriptionLocId="ActionText.Description.AI_AiRestoreDeferred" Template="Path: [1]" TemplateLocId="ActionText.Template.AI_AiRestoreDeferred"/>
+    <ROW Action="AI_AiRestoreRollback" Description="Rollback restore" DescriptionLocId="ActionText.Description.AI_AiRestoreRollback" Template="Path: [1]" TemplateLocId="ActionText.Template.AI_AiRestoreRollback"/>
     <ROW Action="AI_DeleteLzma" Description="Deleting files extracted from archive" DescriptionLocId="ActionText.Description.AI_DeleteLzma" TemplateLocId="-"/>
     <ROW Action="AI_DeleteRLzma" Description="Deleting files extracted from archive" DescriptionLocId="ActionText.Description.AI_DeleteLzma" TemplateLocId="-"/>
     <ROW Action="AI_ExtractFiles" Description="Extracting files from archive" DescriptionLocId="ActionText.Description.AI_ExtractLzma" TemplateLocId="-"/>
@@ -1168,14 +1187,14 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiBinaryComponent">
     <ROW Name="Prereq.dll" SourcePath="&lt;AI_CUSTACTS&gt;Prereq.dll"/>
+    <ROW Name="ResourceCleaner.dll" SourcePath="&lt;AI_CUSTACTS&gt;ResourceCleaner.dll"/>
     <ROW Name="ShortcutFlags.dll" SourcePath="&lt;AI_CUSTACTS&gt;ShortcutFlags.dll"/>
     <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
     <ROW Name="lzmaextractor.dll" SourcePath="&lt;AI_CUSTACTS&gt;lzmaextractor.dll"/>
     <ROW Name="viewer.exe" SourcePath="&lt;AI_CUSTACTS&gt;viewer.exe"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiConditionComponent">
-    <ROW Feature_="ioio" Level="0" Condition="((VersionNT &lt; 500) OR (NOT VersionNT))"/>
-    <ROW Feature_="PIXELDRIVER" Level="1" Condition="VersionNT = 501 or VersionNT = 600 or VersionNT = 601"/>
+    <ROW Feature_="ioio" Level="4" Condition="(VersionNT = 1000 AND MsNTProductType = 1) OR (VersionNT64 = 1000 AND MsiNTProductType = 1)"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiControlComponent">
     <ROW Dialog_="ReadmeDlg" Control="ReadmeText" Type="ScrollableText" X="55" Y="100" Width="360" Height="200" Attributes="7" Text="..\installer source\pixelcade\readme\Installer-ReadMe.rtf" Order="400" TextLocId="Control.Text.ReadmeDlg#ReadmeText_2" MsiKey="ReadmeDlg#ReadmeText"/>
@@ -1205,11 +1224,19 @@
     <ROW Dialog_="ResumeDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_RESUME" Ordering="299"/>
     <ROW Dialog_="ReadmeDlg" Control_="Next" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="1"/>
     <ROW Dialog_="ReadmeDlg" Control_="Back" Event="NewDialog" Argument="WelcomeDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="FatalError" Control_="Finish" Event="DoAction" Argument="AI_AiBackupCleanup" Condition="1" Ordering="102"/>
+    <ROW Dialog_="UserExit" Control_="Finish" Event="DoAction" Argument="AI_AiBackupCleanup" Condition="1" Ordering="101"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCreateFolderComponent">
     <ROW Directory_="SHORTCUTDIR" Component_="SHORTCUTDIR" ManualDelete="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCustActComponent">
+    <ROW Action="AI_AiBackupCleanup" Type="1" Source="ResourceCleaner.dll" Target="OnAiBackupCleanup" WithoutSeq="true"/>
+    <ROW Action="AI_AiBackupImmediate" Type="1" Source="ResourceCleaner.dll" Target="OnAiBackupImmediate"/>
+    <ROW Action="AI_AiBackupRollback" Type="11521" Source="ResourceCleaner.dll" Target="OnAiBackupRollback"/>
+    <ROW Action="AI_AiRestoreDeferred" Type="11265" Source="ResourceCleaner.dll" Target="OnAiRestoreDeferred"/>
+    <ROW Action="AI_AiRestoreDeferredImpersonate" Type="9217" Source="ResourceCleaner.dll" Target="OnAiRestoreDeferredImpersonate"/>
+    <ROW Action="AI_AiRestoreRollback" Type="11521" Source="ResourceCleaner.dll" Target="OnAiRestoreRollback" WithoutSeq="true"/>
     <ROW Action="AI_ApplyShortcutFlags" Type="3073" Source="ShortcutFlags.dll" Target="UpdateShortcutFlags" WithoutSeq="true"/>
     <ROW Action="AI_BACKUP_AI_SETUPEXEPATH" Type="51" Source="AI_SETUPEXEPATH_ORIGINAL" Target="[AI_SETUPEXEPATH]"/>
     <ROW Action="AI_DATA_SETTER" Type="51" Source="AI_ExtractFiles" Target="[AI_SETUPEXEPATH]"/>
@@ -1219,6 +1246,7 @@
     <ROW Action="AI_DeleteRCadLzma" Type="51" Source="AI_DeleteRLzma" Target="[AI_SETUPEXEPATH]"/>
     <ROW Action="AI_DeleteRLzma" Type="1281" Source="lzmaextractor.dll" Target="DeleteLZMAFiles"/>
     <ROW Action="AI_DpiContentScale" Type="1" Source="aicustact.dll" Target="DpiContentScale"/>
+    <ROW Action="AI_EnableDebugLog" Type="321" Source="aicustact.dll" Target="EnableDebugLog"/>
     <ROW Action="AI_EstimateExtractFiles" Type="1" Source="Prereq.dll" Target="EstimateExtractFiles"/>
     <ROW Action="AI_ExtractCadLzma" Type="51" Source="AI_ExtractLzma" Target="[AI_SETUPEXEPATH]"/>
     <ROW Action="AI_ExtractFiles" Type="1025" Source="Prereq.dll" Target="ExtractSourceFiles" AdditionalSeq="AI_DATA_SETTER"/>
@@ -1245,7 +1273,7 @@
     <ROW Signature_="FileSearchSign_1" Depth="3"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiDriverPackagesComponent">
-    <ROW InfFileName="ioio.inf" Flags="25"/>
+    <ROW InfFileName="ioio.inf" Flags="24"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
     <ROW Name="APPDIR.exe" SourcePath="..\installer source\pixelcade\icons\folder.ico" Index="0"/>
@@ -1253,62 +1281,14 @@
     <ROW Name="gumball.exe" SourcePath="..\installer source\pixelcade\icons\gumball.ico" Index="0"/>
     <ROW Name="pixelcadeconfig.exe" SourcePath="..\installer source\pixelcade\icons\settings2.ico" Index="0"/>
     <ROW Name="pixelcadetest.exe" SourcePath="..\installer source\pixelcade\icons\led-black.ico" Index="0"/>
-  </COMPONENT>
-  <COMPONENT cid="caphyon.advinst.msicomp.MsiIniFileComponent">
-    <ROW IniFile="AddReg" FileName="ioio.inf" DirProperty="driver_Dir" Section="DriverInstall.nt" Key="AddReg" Value="DriverInstall.nt.AddReg" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="AddReg_1" FileName="ioio.inf" DirProperty="driver_Dir" Section="DriverInstall.NTamd64" Key="AddReg" Value="DriverInstall.NTamd64.AddReg" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="AddService" FileName="ioio.inf" DirProperty="driver_Dir" Section="DriverInstall.nt.Services" Key="AddService" Value="usbser, 0x00000002, DriverService.nt" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="AddService_1" FileName="ioio.inf" DirProperty="driver_Dir" Section="DriverInstall.NTamd64.Services" Key="AddService" Value="usbser, 0x00000002, DriverService.NTamd64" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="CatalogFile" FileName="ioio.inf" DirProperty="driver_Dir" Section="Version" Key="CatalogFile" Value="%MFGFILENAME%.cat" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="Class" FileName="ioio.inf" DirProperty="driver_Dir" Section="Version" Key="Class" Value="Ports" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="ClassGuid" FileName="ioio.inf" DirProperty="driver_Dir" Section="Version" Key="ClassGuid" Value="[\{]4D36E978-E325-11CE-BFC1-08002BE10318[\}]" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="CopyFiles" FileName="ioio.inf" DirProperty="driver_Dir" Section="DriverInstall.nt" Key="CopyFiles" Value="DriverCopyFiles.nt" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="CopyFiles_1" FileName="ioio.inf" DirProperty="driver_Dir" Section="DriverInstall.NTamd64" Key="CopyFiles" Value="DriverCopyFiles.NTamd64" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="DESCRIPTION" FileName="ioio.inf" DirProperty="driver_Dir" Section="DeviceList" Key="%DESCRIPTION%" Value="DriverInstall, USB\VID_1B4F&amp;PID_0008" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="DESCRIPTION_1" FileName="ioio.inf" DirProperty="driver_Dir" Section="DeviceList.NTamd64" Key="%DESCRIPTION%" Value="DriverInstall, USB\VID_1B4F&amp;PID_0008" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="DESCRIPTION_2" FileName="ioio.inf" DirProperty="driver_Dir" Section="Strings" Key="DESCRIPTION" Value="&quot;PIXEL-LED&quot;" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="DRIVERFILENAME" FileName="ioio.inf" DirProperty="driver_Dir" Section="Strings" Key="DRIVERFILENAME" Value="&quot;usbser&quot;" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="DRIVERFILENAME.sys0x20" FileName="ioio.inf" DirProperty="driver_Dir" Section="DriverCopyFiles.NTamd64" Key="%DRIVERFILENAME%.sys,,,0x20" Value="%DRIVERFILENAME%.sys,,,0x20" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="DefaultDestDir" FileName="ioio.inf" DirProperty="driver_Dir" Section="DestinationDirs" Key="DefaultDestDir" Value="12" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="DisplayName" FileName="ioio.inf" DirProperty="driver_Dir" Section="DriverService.nt" Key="DisplayName" Value="%SERVICE%" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="DisplayName_1" FileName="ioio.inf" DirProperty="driver_Dir" Section="DriverService.NTamd64" Key="DisplayName" Value="%SERVICE%" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="DriverVer" FileName="ioio.inf" DirProperty="driver_Dir" Section="Version" Key="DriverVer" Value="03/11/2010,5.1.2600.2" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="ErrorControl" FileName="ioio.inf" DirProperty="driver_Dir" Section="DriverService.nt" Key="ErrorControl" Value="1" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="ErrorControl_1" FileName="ioio.inf" DirProperty="driver_Dir" Section="DriverService.NTamd64" Key="ErrorControl" Value="1" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="HKRDevLoaderntkern" FileName="ioio.inf" DirProperty="driver_Dir" Section="DriverInstall.nt.AddReg" Key="HKR,,DevLoader,,*ntkern" Value="HKR,,DevLoader,,*ntkern" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="HKRDevLoaderntkern_1" FileName="ioio.inf" DirProperty="driver_Dir" Section="DriverInstall.NTamd64.AddReg" Key="HKR,,DevLoader,,*ntkern" Value="HKR,,DevLoader,,*ntkern" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="HKREnumPropPages32MsPorts.dllSerialPortPropPageProvider" FileName="ioio.inf" DirProperty="driver_Dir" Section="DriverInstall.nt.AddReg" Key="HKR,,EnumPropPages32,,&quot;MsPorts.dll,SerialPortPropPageProvider&quot;" Value="HKR,,EnumPropPages32,,&quot;MsPorts.dll,SerialPortPropPageProvider&quot;" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="HKREnumPropPages32MsPorts.dllSerialPortPropPageProvider_1" FileName="ioio.inf" DirProperty="driver_Dir" Section="DriverInstall.NTamd64.AddReg" Key="HKR,,EnumPropPages32,,&quot;MsPorts.dll,SerialPortPropPageProvider&quot;" Value="HKR,,EnumPropPages32,,&quot;MsPorts.dll,SerialPortPropPageProvider&quot;" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="HKRNTMPDriverDRIVERFILENAME.sys" FileName="ioio.inf" DirProperty="driver_Dir" Section="DriverInstall.nt.AddReg" Key="HKR,,NTMPDriver,,%DRIVERFILENAME%.sys" Value="HKR,,NTMPDriver,,%DRIVERFILENAME%.sys" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="HKRNTMPDriverDRIVERFILENAME.sys_1" FileName="ioio.inf" DirProperty="driver_Dir" Section="DriverInstall.NTamd64.AddReg" Key="HKR,,NTMPDriver,,%DRIVERFILENAME%.sys" Value="HKR,,NTMPDriver,,%DRIVERFILENAME%.sys" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="INSTDISK" FileName="ioio.inf" DirProperty="driver_Dir" Section="Strings" Key="INSTDISK" Value="&quot;PIXEL Installation Disc&quot;" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="IconFile" FileName="PIXELC~1.URL|Pixelcade Front End Setup Guides.url" DirProperty="SHORTCUTDIR" Section="InternetShortcut" Key="IconFile" Value="[#applicationsinternet4.ico]" Action="0" Component_="ioio.inf_1"/>
-    <ROW IniFile="IconIndex" FileName="PIXELC~1.URL|Pixelcade Front End Setup Guides.url" DirProperty="SHORTCUTDIR" Section="InternetShortcut" Key="IconIndex" Value="0" Action="0" Component_="ioio.inf_1"/>
-    <ROW IniFile="LayoutFile" FileName="ioio.inf" DirProperty="driver_Dir" Section="Version" Key="LayoutFile" Value="layout.inf" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="MFGFILENAME" FileName="ioio.inf" DirProperty="driver_Dir" Section="Strings" Key="MFGFILENAME" Value="&quot;PIXEL&quot;" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="MFGNAME" FileName="ioio.inf" DirProperty="driver_Dir" Section="Manufacturer" Key="%MFGNAME%" Value="DeviceList, NTamd64" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="MFGNAME_1" FileName="ioio.inf" DirProperty="driver_Dir" Section="Strings" Key="MFGNAME" Value="&quot;PIXEL LED ART&quot;" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="Provider" FileName="ioio.inf" DirProperty="driver_Dir" Section="Version" Key="Provider" Value="%MFGNAME%" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="SERVICE" FileName="ioio.inf" DirProperty="driver_Dir" Section="Strings" Key="SERVICE" Value="&quot;I/O Interface&quot;" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="ServiceBinary" FileName="ioio.inf" DirProperty="driver_Dir" Section="DriverService.nt" Key="ServiceBinary" Value="%12%\%DRIVERFILENAME%.sys" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="ServiceBinary_1" FileName="ioio.inf" DirProperty="driver_Dir" Section="DriverService.NTamd64" Key="ServiceBinary" Value="%12%\%DRIVERFILENAME%.sys" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="ServiceType" FileName="ioio.inf" DirProperty="driver_Dir" Section="DriverService.nt" Key="ServiceType" Value="1" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="ServiceType_1" FileName="ioio.inf" DirProperty="driver_Dir" Section="DriverService.NTamd64" Key="ServiceType" Value="1" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="Signature" FileName="ioio.inf" DirProperty="driver_Dir" Section="Version" Key="Signature" Value="&quot;$Windows NT$&quot;" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="StartType" FileName="ioio.inf" DirProperty="driver_Dir" Section="DriverService.nt" Key="StartType" Value="3" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="StartType_1" FileName="ioio.inf" DirProperty="driver_Dir" Section="DriverService.NTamd64" Key="StartType" Value="3" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="URL" FileName="PIXELC~1.URL|Pixelcade Front End Setup Guides.url" DirProperty="SHORTCUTDIR" Section="InternetShortcut" Key="URL" Value="http://ledpixelart.com/pixelcadeguide" Action="0" Component_="ioio.inf_1"/>
-    <ROW IniFile="WorkingDirectory" FileName="PIXELC~1.URL|Pixelcade Front End Setup Guides.url" DirProperty="SHORTCUTDIR" Section="InternetShortcut" Key="WorkingDirectory" Value="[SHORTCUTDIR]" Action="0" Component_="ioio.inf_1"/>
-    <ROW IniFile="include" FileName="ioio.inf" DirProperty="driver_Dir" Section="DriverInstall.nt" Key="include" Value="mdmcpq.inf" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="include_1" FileName="ioio.inf" DirProperty="driver_Dir" Section="DriverInstall.NTamd64" Key="include" Value="mdmcpq.inf" Action="0" Component_="gpl2.0.txt"/>
-    <ROW IniFile="usbser.sys0x20" FileName="ioio.inf" DirProperty="driver_Dir" Section="DriverCopyFiles.nt" Key="usbser.sys,,,0x20" Value="usbser.sys,,,0x20" Action="0" Component_="gpl2.0.txt"/>
+    <ROW Name="system.exe" SourcePath="..\installer source\pixelcade\icons\system.ico" Index="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
     <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>
     <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
-    <ROW Action="AI_STORE_LOCATION" Condition="(Not Installed) OR REINSTALL" Sequence="1501"/>
+    <ROW Action="AI_STORE_LOCATION" Condition="(Not Installed) OR REINSTALL" Sequence="1502"/>
     <ROW Action="AI_PREPARE_UPGRADE" Condition="AI_UPGRADE=&quot;No&quot; AND (Not Installed)" Sequence="1399"/>
-    <ROW Action="AI_ResolveKnownFolders" Sequence="51"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="52"/>
     <ROW Action="InstallFinalize" Sequence="6552" SeqType="0" MsiKey="InstallFinalize"/>
     <ROW Action="AI_BACKUP_AI_SETUPEXEPATH" Sequence="99" Builds="DefaultBuild"/>
     <ROW Action="AI_RESTORE_AI_SETUPEXEPATH" Condition="AI_SETUPEXEPATH_ORIGINAL" Sequence="101" Builds="DefaultBuild"/>
@@ -1318,26 +1298,37 @@
     <ROW Action="AI_FindExeLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="196" Builds="DefaultBuild"/>
     <ROW Action="AI_ExtractLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="1549" Builds="DefaultBuild"/>
     <ROW Action="AI_DeleteRLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="1548" Builds="DefaultBuild"/>
-    <ROW Action="AI_DeleteLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="6551" Builds="DefaultBuild"/>
+    <ROW Action="AI_DeleteLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="6549" Builds="DefaultBuild"/>
     <ROW Action="AI_ExtractFiles" Sequence="3998" Builds="DefaultBuild"/>
     <ROW Action="AI_DATA_SETTER" Sequence="3997"/>
     <ROW Action="AI_EstimateExtractFiles" Sequence="3999" Builds="DefaultBuild"/>
     <ROW Action="AI_PrepareShortcutFlags" Condition="(VersionNT &gt; 501) AND ((NOT Installed) OR (Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;)))" Sequence="4501"/>
+    <ROW Action="AI_EnableDebugLog" Sequence="51"/>
+    <ROW Action="AI_AiBackupImmediate" Sequence="1401"/>
+    <ROW Action="AI_AiBackupRollback" Sequence="1501"/>
+    <ROW Action="AI_AiRestoreDeferredImpersonate" Sequence="6550"/>
+    <ROW Action="AI_AiRestoreDeferred" Sequence="6551"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
     <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
-    <ROW Action="AI_ResolveKnownFolders" Sequence="52"/>
-    <ROW Action="AI_DpiContentScale" Sequence="51"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="53"/>
+    <ROW Action="AI_DpiContentScale" Sequence="52"/>
     <ROW Action="AI_BACKUP_AI_SETUPEXEPATH" Sequence="99"/>
     <ROW Action="AI_RESTORE_AI_SETUPEXEPATH" Condition="AI_SETUPEXEPATH_ORIGINAL" Sequence="101"/>
     <ROW Action="ExecuteAction" Sequence="1299" SeqType="0" MsiKey="ExecuteAction"/>
     <ROW Action="ExecuteScriptCode_HyperSpin" Sequence="202"/>
     <ROW Action="ExecuteScriptCode_Maximus_Arcade" Sequence="201"/>
     <ROW Action="OpenUrl" Condition="( NOT Installed )" Sequence="1300"/>
+    <ROW Action="AI_EnableDebugLog" Sequence="51"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiLaunchConditionsComponent">
+    <ROW Condition="( Version9X OR ( NOT VersionNT64 ) OR ( VersionNT64 AND ((VersionNT64 &lt;&gt; 1000) OR (MsiNTProductType &lt;&gt; 1)) ) )" Description="[ProductName] cannot be installed on the following Windows versions: [WindowsTypeNT64Display]." DescriptionLocId="AI.LaunchCondition.NoSpecificNT64" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="( Version9X OR VersionNT64 OR ( VersionNT AND (VersionNT &lt;&gt; 1000) ) )" Description="[ProductName] cannot be installed on the following Windows versions: [WindowsTypeNTDisplay]." DescriptionLocId="AI.LaunchCondition.NoSpecificNT" IsPredefined="true" Builds="DefaultBuild"/>
     <ROW Condition="(VersionNT &lt;&gt; 400)" Description="[ProductName] cannot be installed on the following Windows versions: [WindowsTypeNT40Display]" DescriptionLocId="AI.LaunchCondition.NoNT40" IsPredefined="true" Builds="DefaultBuild"/>
-    <ROW Condition="VersionNT" Description="[ProductName] cannot be installed on [WindowsType9XDisplay]" DescriptionLocId="AI.LaunchCondition.No9X" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="(VersionNT &lt;&gt; 500)" Description="[ProductName] cannot be installed on [WindowsTypeNT50Display]." DescriptionLocId="AI.LaunchCondition.NoNT50" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="(VersionNT64 OR ((VersionNT &lt;&gt; 501) OR (ServicePackLevel = 3))) AND ((VersionNT &lt;&gt; 502) OR (ServicePackLevel = 2))" Description="[ProductName] cannot be installed on [WindowsTypeNT5XDisplay]." DescriptionLocId="AI.LaunchCondition.NoNT5X" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="SETUPEXEDIR OR (REMOVE=&quot;ALL&quot;)" Description="This package can only be run from a bootstrapper." DescriptionLocId="AI.LaunchCondition.RequireBootstrapper" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="VersionNT" Description="[ProductName] cannot be installed on [WindowsType9XDisplay]." DescriptionLocId="AI.LaunchCondition.No9X" IsPredefined="true" Builds="DefaultBuild"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiRegLocatorComponent">
     <ROW Signature_="AI_EXE_PATH_CU" Root="1" Key="Software\Caphyon\Advanced Installer\LZMA\[ProductCode]\[ProductVersion]" Name="AI_ExePath" Type="2"/>
