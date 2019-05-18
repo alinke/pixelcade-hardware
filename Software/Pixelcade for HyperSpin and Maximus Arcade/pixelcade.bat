@@ -1,7 +1,7 @@
 
 @echo off
 setlocal ENABLEDELAYEDEXPANSION
-
+SETLOCAL ENABLEEXTENSIONS
 IF EXIST settings.ini (
   for /f "tokens=1,2 delims==" %%a in (settings.ini) do ( 
   	if %%a==port set port_=%%b
@@ -225,7 +225,41 @@ IF EXIST "!%GIFPATHESCAPED%!" (
 echo *** PIXEL LED MARQUEE ***
 echo %USERMESSAGE%
 
-echo pixelc.exe --port=%port_% --gif="%GAMEMARQUEE%" --%ledResolution_% --write 
-pixelc.exe --port=%port_% --gif="%GAMEMARQUEE%" --%ledResolution_% --write 
-REM possible to do, the java code coud run without a port the first time and then write the detected port to a .txt file. if port not specified here, could read this file as a backup
+REM before we write, let's check if the GIF is already written via MD5 check and if so, then we'll skip the write to same time
 
+for %%# in (certutil.exe) do (
+	if not exist "%%~f$PATH:#" (
+		echo no certutil installed so we'll skip the MD5 check, no big deal
+		echo pixelc.exe --port=%port_% --gif="%GAMEMARQUEE%" --%ledResolution_% --write 
+		pixelc.exe --port=%port_% --gif="%GAMEMARQUEE%" --%ledResolution_% --write 
+		EXIT /B
+	)
+)
+
+REM *** We can do the MD5 check so let's do that now and only write the marquee if it's different
+set /a count=1 
+for /f "skip=1 delims=:" %%a in ('CertUtil -hashfile "%GAMEMARQUEE%" MD5') do (
+  if !count! equ 1 set "md5_new=%%a"
+  set/a count+=1
+)
+set "md5_new=%md5_new: =%
+REM echo new MD5: %md5_new%
+
+IF EXIST last-marquee.txt (
+	set/p md5_last=<last-marquee.txt
+) ELSE (
+	set md5_last=9999999
+)
+
+REM echo last MD5: %md5_last%
+echo %md5_new% > last-marquee.txt
+
+IF %md5_new% NEQ %md5_last% (
+	echo pixelc.exe --port=%port_% --gif="%GAMEMARQUEE%" --%ledResolution_% --write 
+	pixelc.exe --port=%port_% --gif="%GAMEMARQUEE%" --%ledResolution_% --write 
+) ELSE (
+	echo *** MARQUEE HAS NOT CHANGED SO NO NEED TO WRITE AGAIN ***
+)
+ 
+REM possible to do, the java code coud run without a port the first time and then write the detected port to a .txt file. if port not specified here, could read this file as a backup
+REM taskkill /IM pixelc.exe /F
