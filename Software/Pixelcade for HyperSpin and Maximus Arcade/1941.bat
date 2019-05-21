@@ -1,1 +1,0 @@
-pixelc --port=com9 --gif=1941.gif --64x32 --write
