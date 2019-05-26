@@ -1,7 +1,44 @@
 
 @echo off
-setlocal ENABLEDELAYEDEXPANSION
+SETLOCAL ENABLEDELAYEDEXPANSION
 SETLOCAL ENABLEEXTENSIONS
+
+IF "%~1" == "" (
+	echo Exiting as no command line parameters were entered
+	echo Proper usage is pixelcade platform gamename or pixelcade textmode hi, use quotes if text has spaces
+	echo Example: pixelcade mame 1941
+	echo Example: pixelcade textmode "hello world" red 
+	echo Example: pixelcade textmode "hello world" cyan 8 60 //// 8 is the speed, 60 is font size
+	echo Example: pixelcade textmode "hello world" cyan 8 60 -25 5 //// -25 is the vertical position offset and 5 is number of times to loop before exiting
+  	EXIT /B
+)
+
+call getCmdPID.exe
+set "current_pid=%errorlevel%"
+
+REM ************ Let's check if pixelcade.bat is already running and kill it if so ***************
+IF %current_pid% == 1 set result=true
+IF %current_pid% == "" set result=true
+IF "%result%" == "true" (
+    echo getCmdPID is not installed, please re-install and add this file. Pixelcade in stream mode will not work.
+) ELSE (
+	for /f "tokens=2 delims=," %%a in ('
+	    tasklist /fi "imagename eq cmd.exe" /v /fo:csv /nh 
+	    ^| findstr /r /c:".*pixelcade[^,]*$"
+	') do (
+		rem echo current pid: "%current_pid%"
+		rem echo checked pid: %%a
+
+		if %%a neq "%current_pid%" (
+			TASKKILL /PID %%a /f >nul 2>nul /t
+			echo Killed running pixelcade process PID: %%a
+			rem taskkill /pid %%a /f /t
+		)
+	)
+    )	
+)
+
+
 IF EXIST settings.ini (
   for /f "tokens=1,2 delims==" %%a in (settings.ini) do ( 
   	if %%a==port set port_=%%b
@@ -18,8 +55,14 @@ IF EXIST settings.ini (
   EXIT /B
 )
 
+
+IF "%~1" == "textmode" (
+ 	goto TEXTMODE  
+ )
+
 set CONSOLE=%~1
 set GAMENAME=%~2
+set WRITEMODE=%~3
 SET WORKINGPATH=%~dp0
 set USERMESSAGE=""
 
@@ -255,11 +298,46 @@ REM echo last MD5: %md5_last%
 echo %md5_new% > last-marquee.txt
 
 IF %md5_new% NEQ %md5_last% (
-	echo pixelc.exe --port=%port_% --gif="%GAMEMARQUEE%" --%ledResolution_% --write 
-	pixelc.exe --port=%port_% --gif="%GAMEMARQUEE%" --%ledResolution_% --write 
+	
+	IF "%WRITEMODE%"=="write" (
+			echo pixelc.exe --port=%port_% --gif="%GAMEMARQUEE%" --%ledResolution_% --write
+			pixelc.exe --port=%port_% --gif="%GAMEMARQUEE%" --%ledResolution_% --write
+	) ELSE (
+			echo pixelc.exe --port=%port_% --gif="%GAMEMARQUEE%" --%ledResolution_%
+			pixelc.exe --port=%port_% --gif="%GAMEMARQUEE%" --%ledResolution_%
+	)
+	
 ) ELSE (
 	echo *** MARQUEE HAS NOT CHANGED SO NO NEED TO WRITE AGAIN ***
 )
- 
+Goto DONE
+
+:TEXTMODE
+
+REM  note that set text is not working within IF statement
+SET TEXT=%~2   			
+SET COLOR=%~3
+SET SPEED=%~4
+SET FONTSIZE=%~5
+SET OFFSET=%~6
+SET LOOP=%~7
+
+IF "%~2" == "" set TEXT=no text entered, correct usage pixelcade textmode your-text-in-quotes color speed fontsize offset loop
+IF "%COLOR%" == "" set COLOR=red
+IF "%SPEED%" == "" set SPEED=6
+IF "%FONTSIZE%" == "" set FONTSIZE=50
+IF "%OFFSET%" == "" set OFFSET=-25
+
+IF "%LOOP%" == "" (
+	echo pixelc.exe --port=%port_% --text="%TEXT%" --%ledResolution_% --fontsize=50 --offset=-25 --color=%COLOR% --speed=%SPEED% 
+	pixelc.exe --port=%port_% --text="%TEXT%" --%ledResolution_% --fontsize=50 --offset=-25 --color=%COLOR% --speed=%SPEED%
+) ELSE (
+	echo pixelc.exe --port=%port_% --text="%TEXT%" --%ledResolution_% --fontsize=50 --offset=-25 --color=%COLOR% --speed=%SPEED% --loop=%LOOP%
+	pixelc.exe --port=%port_% --text="%TEXT%" --%ledResolution_% --fontsize=50 --offset=-25 --color=%COLOR% --speed=%SPEED% --loop=%LOOP%
+)
+
+:DONE
+
+REM would prefer not to use goto statement but you cannot have nested IFs in Batch unfortunately
+
 REM possible to do, the java code coud run without a port the first time and then write the detected port to a .txt file. if port not specified here, could read this file as a backup
-REM taskkill /IM pixelc.exe /F
