@@ -1,0 +1,17 @@
+Pixelcade Version 1.5.5 
+2032
+current pid: "2032"  
+existing pid: "2032"  
+found settings.ini 
+Console: mame 
+ROM Name or Path: 1941.zip 
+Stream Mode: "" 
+Working Path: C:\MAX 2.10\Pixelcade\ 
+Game Name Only: 1941 
+GIF path "C:\MAX 2.10\Pixelcade\mame\1941.gif" 
+Game Marquee: C:\MAX 2.10\Pixelcade\mame\1941.gif 
+new MD5: 4e1a630e464438d50679f3a36ac6c652 
+last MD5: 9999999 
+pixelc.exe --port=COM9 --gif="C:\MAX 2.10\Pixelcade\mame\1941.gif" --128x32 --write 
+curl -s -d "v=1&t=event&tid=UA-140901733-1&cid=555&ec=game-write-test&ea=mame&el=1941&ev=128" -X POST www.google-analytics.com/collect 
+*** Finished Write *** 
