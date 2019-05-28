@@ -3,6 +3,10 @@
 SETLOCAL ENABLEDELAYEDEXPANSION
 SETLOCAL ENABLEEXTENSIONS
 
+REM we'll set the title of this window so we have a handle to kill the older sessions, ex. title of window will be pixelcade.bat or something else if users changed the .bat file to another name
+TITLE pixelcade
+SET VERSION=1.5.5
+
 rem our log file
 IF EXIST pixelcade.log (
   DEL pixelcade.log
@@ -19,6 +23,8 @@ IF "%~1" == "" (
   	EXIT /B
 )
 
+ECHO Pixelcade %VERSION% >> pixelcade.log
+
 CALL getCmdPID.exe >> pixelcade.log
 SET "current_pid=%errorlevel%"
 
@@ -31,7 +37,7 @@ IF "%result%" == "true" (
 ) ELSE (
 	FOR /f "tokens=2 delims=," %%a in ('
 	    tasklist /fi "imagename eq cmd.exe" /v /fo:csv /nh 
-	    ^| findstr /r /c:".*pixelcade[^,]*$"
+	      ^| findstr /r /c:".*pixelcade[^,]*$" REM note that this won't work if the cmd window is launched under admiin which is the case for maximus arcade, permissioned denied when trying to kill the window
 	') DO (
 		ECHO current pid: "%current_pid%"  >> pixelcade.log
 		ECHO existing pid: %%a  >> pixelcade.log
@@ -86,7 +92,7 @@ SET USERMESSAGE=""
 
 ECHO Console: %CONSOLE% >> pixelcade.log
 ECHO ROM Name or Path: %GAMENAME% >> pixelcade.log
-ECHO Write Mode: %STREAMMODE% >> pixelcade.log
+ECHO Stream Mode: %STREAMMODE% >> pixelcade.log
 ECHO Working Path: %WORKINGPATH% >> pixelcade.log
 
 rem ******* Mapping Table needed FOR Hyperspin ***************************
@@ -292,7 +298,7 @@ IF EXIST "!%GIFPATHESCAPED%!" (
 
 ECHO Game Marquee: %GAMEMARQUEE% >> pixelcade.log
    
-ECHO *** PIXEL LED MARQUEE ***
+ECHO *** PIXEL LED MARQUEE %VERSION% ***
 ECHO %USERMESSAGE%
 
 rem before we write, let's check IF the GIF is already written via MD5 check and IF so, then we'll skip the write to same time
@@ -344,14 +350,14 @@ IF "%STREAMMODE%"=="stream" (
 	ECHO *** Streaming Mode *** >> pixelcade.log
 	ECHO pixelc.exe --port=%port_% --gif="%GAMEMARQUEE%" --%ledResolution_%
 	ECHO pixelc.exe --port=%port_% --gif="%GAMEMARQUEE%" --%ledResolution_% >> pixelcade.log
-	echo curl.exe curl -s -d "v=1&t=event&tid=UA-140901733-1&cid=555&ec=%CATEGORYTRACK%-stream&ea=%CONSOLE%&el=%GAMENAMEONLY%&ev=%VALUETRACK%" -X POST www.google-analytics.com/collect >> pixelcade.log
-	IF EXIST curl.exe curl -s -d "v=1&t=event&tid=UA-140901733-1&cid=555&ec=%CATEGORYTRACK%-stream&ea=%CONSOLE%&el=%GAMENAMEONLY%&ev=%VALUETRACK%" -X POST www.google-analytics.com/collect >> pixelcade.log
+	rem echo curl.exe curl -s -d "v=1&t=event&tid=UA-140901733-1&cid=555&ec=%CATEGORYTRACK%-stream&ea=%CONSOLE%&el=%GAMENAMEONLY%&ev=%VALUETRACK%" -X POST www.google-analytics.com/collect >> pixelcade.log
+	rem IF EXIST curl.exe curl -s -d "v=1&t=event&tid=UA-140901733-1&cid=555&ec=%CATEGORYTRACK%-stream&ea=%CONSOLE%&el=%GAMENAMEONLY%&ev=%VALUETRACK%" -X POST www.google-analytics.com/collect >> pixelcade.log
 	pixelc.exe --port=%port_% --gif="%GAMEMARQUEE%" --%ledResolution_%
 ) ELSE (
 	ECHO pixelc.exe --port=%port_% --gif="%GAMEMARQUEE%" --%ledResolution_% --write
 	ECHO pixelc.exe --port=%port_% --gif="%GAMEMARQUEE%" --%ledResolution_% --write >> pixelcade.log
 	pixelc.exe --port=%port_% --gif="%GAMEMARQUEE%" --%ledResolution_% --write
-	echo curl -d "v=1&t=event&tid=UA-140901733-1&cid=555&ec=%CATEGORYTRACK%-write&ea=%CONSOLE%&el=%GAMENAMEONLY%&ev=%VALUETRACK%" -X POST www.google-analytics.com/collect >> pixelcade.log
+	echo curl -s -d "v=1&t=event&tid=UA-140901733-1&cid=555&ec=%CATEGORYTRACK%-write&ea=%CONSOLE%&el=%GAMENAMEONLY%&ev=%VALUETRACK%" -X POST www.google-analytics.com/collect >> pixelcade.log
 	IF EXIST curl.exe curl -s -d "v=1&t=event&tid=UA-140901733-1&cid=555&ec=%CATEGORYTRACK%-write&ea=%CONSOLE%&el=%GAMENAMEONLY%&ev=%VALUETRACK%" -X POST www.google-analytics.com/collect >> pixelcade.log
 	ECHO *** Finished Write *** >> pixelcade.log
 )
@@ -383,8 +389,8 @@ ECHO Loop: %LOOP% >> pixelcade.log
 rem removing trailing spaces
 FOR /l %%a in (1,1,31) DO IF "!TEXT:~-1!"==" " SET TEXT=!TEXT:~0,-1!
 
-ECHO curl -s -d "v=1&t=event&tid=UA-140901733-1&cid=555&ec=textmode&ea=%COLOR%&el=%LOOP%&ev=%VALUETRACK%" -X POST www.google-analytics.com/collect >> pixelcade.log
-IF EXIST curl.exe curl -s -d "v=1&t=event&tid=UA-140901733-1&cid=555&ec=textmode&ea=%COLOR%&el=%LOOP%&ev=%VALUETRACK%" -X POST www.google-analytics.com/collect >> pixelcade.log
+rem ECHO curl -s -d "v=1&t=event&tid=UA-140901733-1&cid=555&ec=textmode&ea=%COLOR%&el=%LOOP%&ev=%VALUETRACK%" -X POST www.google-analytics.com/collect >> pixelcade.log
+rem IF EXIST curl.exe curl -s -d "v=1&t=event&tid=UA-140901733-1&cid=555&ec=textmode&ea=%COLOR%&el=%LOOP%&ev=%VALUETRACK%" -X POST www.google-analytics.com/collect >> pixelcade.log
 IF "%LOOP%" == "" (
 	ECHO pixelc.exe --port=%port_% --text="%TEXT%" --%ledResolution_% --fontsize=50 --offset=-25 --color=%COLOR% --speed=%SPEED% 
 	ECHO pixelc.exe --port=%port_% --text="%TEXT%" --%ledResolution_% --fontsize=50 --offset=-25 --color=%COLOR% --speed=%SPEED% >> pixelcade.log
