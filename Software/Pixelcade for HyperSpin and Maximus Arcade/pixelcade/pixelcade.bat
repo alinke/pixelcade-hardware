@@ -5,7 +5,7 @@ SETLOCAL ENABLEEXTENSIONS
 
 REM we'll set the title of this window so we have a handle to kill the older sessions, ex. title of window will be pixelcade.bat or something else if users changed the .bat file to another name
 TITLE pixelcade
-SET VERSION=1.5.5
+SET VERSION=1.5.8
 
 rem our log file
 IF EXIST pixelcade.log (
@@ -25,10 +25,16 @@ IF "%~1" == "" (
 
 ECHO Pixelcade %VERSION% >> pixelcade.log
 
+REM set time stamp in log file
+for /F "usebackq tokens=1,2 delims==" %%i in (`wmic os get LocalDateTime /VALUE 2^>NUL`) do if '.%%i.'=='.LocalDateTime.' set ldt=%%j
+set ldt=%ldt:~0,4%-%ldt:~4,2%-%ldt:~6,2% %ldt:~8,2%:%ldt:~10,2%:%ldt:~12,6%
+echo Last Run Timestamp [%ldt%]  >> pixelcade.log
+
 CALL getCmdPID.exe >> pixelcade.log
 SET "current_pid=%errorlevel%"
 
 rem ************ Let's check if pixelcade.bat is already running and kill it if so but this will only kill cmd windows with pixelcade in the title ***************
+rem note that this won't work if the cmd window is launched under admiin which is the case for maximus arcade, permissioned denied when trying to kill the window
 IF %current_pid% == 1 SET result=true
 IF %current_pid% == "" SET result=true
 IF "%result%" == "true" (
@@ -37,7 +43,7 @@ IF "%result%" == "true" (
 ) ELSE (
 	FOR /f "tokens=2 delims=," %%a in ('
 	    tasklist /fi "imagename eq cmd.exe" /v /fo:csv /nh 
-	      ^| findstr /r /c:".*pixelcade[^,]*$" REM note that this won't work if the cmd window is launched under admiin which is the case for maximus arcade, permissioned denied when trying to kill the window
+	      ^| findstr /r /c:".*pixelcade[^,]*$" 
 	') DO (
 		ECHO current pid: "%current_pid%"  >> pixelcade.log
 		ECHO existing pid: %%a  >> pixelcade.log
@@ -69,6 +75,26 @@ IF EXIST settings.ini (
   EXIT /B
 )
 
+REM let's check if the board is plugged in via a COM port check and exit if not so we don't hang while trying to find the board
+mode %port_% | findstr /I /B /C:"Status for device" > NULL
+if %errorlevel% == 0 (
+    ECHO %port_% is an active port and we detected the PIXEL board, we can continue >> pixelcade.log
+) else (
+    
+    ECHO *** Unable to find your PIXEL LED board on %port_% *** >> pixelcade.log
+    ECHO Please check that the board is USB connected >> pixelcade.log
+    ECHO Then obtain the COM port for the board from Windows device manager >> pixelcade.log
+    ECHO And lastly set the COM port in the Pixelcade Config program >> pixelcade.log
+    ECHO ************************************************** >> pixelcade.log
+    ECHO *** Unable to find your PIXEL LED board on %port_% ***
+    ECHO Please check that the board is USB connected
+    ECHO Then obtain the COM port for the board from Windows device manager
+    ECHO And lastly set the COM port in the Pixelcade Config program
+    ECHO **************************************************
+    EXIT /B
+)
+
+
 rem removing trailing spaces
 FOR /l %%a in (1,1,31) DO IF "!ledResolution_:~-1!"==" " SET ledResolution_=!ledResolution_:~0,-1!
 
@@ -90,112 +116,112 @@ SET STREAMMODE=%~3
 SET WORKINGPATH=%~dp0
 SET USERMESSAGE=""
 
-ECHO Console: %CONSOLE% >> pixelcade.log
+ECHO Console: "%CONSOLE%" >> pixelcade.log
 ECHO ROM Name or Path: %GAMENAME% >> pixelcade.log
 ECHO Stream Mode: %STREAMMODE% >> pixelcade.log
 ECHO Working Path: %WORKINGPATH% >> pixelcade.log
 
-rem ******* Mapping Table needed FOR Hyperspin ***************************
-IF %CONSOLE%=="MAME" SET CONSOLE=mame
+REM ******* Mapping Table needed FOR Hyperspin ***************************
+IF "%CONSOLE%"=="MAME" SET CONSOLE=mame
 
-IF %CONSOLE%=="Amstrad CPC" SET CONSOLE=amstradcpc
-IF %CONSOLE%=="Amstrad GX4000" SET CONSOLE=amstradcpc
-IF %CONSOLE%=="Apple II" SET CONSOLE=apple2
-IF %CONSOLE%=="Apple IIGS" SET CONSOLE=apple2
-IF %CONSOLE%=="Atari 2600" SET CONSOLE=atari2600
-IF %CONSOLE%=="Atari 5200" SET CONSOLE=atari5200
-IF %CONSOLE%=="Atari 7800" SET CONSOLE=atari7800
-IF %CONSOLE%=="Atari Jaguar" SET CONSOLE=atarijaguar
-IF %CONSOLE%=="Atari Jaguar CD" SET CONSOLE=atarijaguar
-IF %CONSOLE%=="Atari Lynx" SET CONSOLE=atarilynx
-IF %CONSOLE%=="Bandai Super Vision 8000" SET CONSOLE=wonderswan
-IF %CONSOLE%=="Bandai WonderSwan" SET CONSOLE=wonderswan
-IF %CONSOLE%=="Bandai WonderSwan Color" SET CONSOLE=wonderswancolor
-IF %CONSOLE%=="Capcom Classics" SET CONSOLE=capcom
-IF %CONSOLE%=="Capcom Play System" SET CONSOLE=capcom
-IF %CONSOLE%=="Capcom Play System II" SET CONSOLE=capcom
-IF %CONSOLE%=="Capcom Play System III" SET CONSOLE=capcom
-IF %CONSOLE%=="ColecoVision" SET CONSOLE=coleco
-IF %CONSOLE%=="Commodore 128" SET CONSOLE=c64
-IF %CONSOLE%=="Commodore 16 & Plus4" SET CONSOLE=c64
-IF %CONSOLE%=="Commodore 64" SET CONSOLE=c64
-IF %CONSOLE%=="Commodore Amiga" SET CONSOLE=amiga
-IF %CONSOLE%=="Commodore Amiga CD32" SET CONSOLE=amiga
-IF %CONSOLE%=="Commodore VIC-20" SET CONSOLE=c64
-IF %CONSOLE%=="Daphne" SET CONSOLE=daphne
-IF %CONSOLE%=="Final Burn Alpha" SET CONSOLE=fba
-IF %CONSOLE%=="Future Pinball" SET CONSOLE=futurepinball
-IF %CONSOLE%=="GCE Vectrex" SET CONSOLE=vectrex
-IF %CONSOLE%=="Magnavox Odyssey" SET CONSOLE=odyssey
-IF %CONSOLE%=="Magnavox Odyssey 2" SET CONSOLE=odyssey
-IF %CONSOLE%=="Mattel Intellivision" SET CONSOLE=intellivision
-IF %CONSOLE%=="Microsoft MSX" SET CONSOLE=msx
-IF %CONSOLE%=="Microsoft MSX2" SET CONSOLE=msx
-IF %CONSOLE%=="Microsoft MSX2+" SET CONSOLE=msx
-IF %CONSOLE%=="Microsoft Windows 3.x" SET CONSOLE=pc
-IF %CONSOLE%=="MiSFiT MAME" SET CONSOLE=mame
-IF %CONSOLE%=="NEC PC Engine" SET CONSOLE=pcengine
-IF %CONSOLE%=="NEC PC Engine-CD" SET CONSOLE=pcengine
-IF %CONSOLE%=="NEC PC-8801" SET CONSOLE=pcengine
-IF %CONSOLE%=="NEC PC-9801" SET CONSOLE=pcengine
-IF %CONSOLE%=="NEC PC-FX" SET CONSOLE=pcengine
-IF %CONSOLE%=="NEC SuperGrafx" SET CONSOLE=pcengine
-IF %CONSOLE%=="NEC TurboGrafx-16" SET CONSOLE=pcengine
-IF %CONSOLE%=="NEC TurboGrafx-CD" SET CONSOLE=pcengine
-IF %CONSOLE%=="Nintendo 64" SET CONSOLE=n64
-IF %CONSOLE%=="Nintendo 64DD" SET CONSOLE=n64
-IF %CONSOLE%=="Nintendo Entertainment System" SET CONSOLE=nes
-IF %CONSOLE%=="Nintendo Famicom" SET CONSOLE=nes
-IF %CONSOLE%=="Nintendo Famicom Disk System" SET CONSOLE=nes
-IF %CONSOLE%=="Nintendo Game Boy" SET CONSOLE=gb
-IF %CONSOLE%=="Nintendo Game Boy Advance" SET CONSOLE=gba
-IF %CONSOLE%=="Nintendo Game Boy Color" SET CONSOLE=gbc
-IF %CONSOLE%=="Nintendo GameCube" SET CONSOLE=nes
-IF %CONSOLE%=="Nintendo Pokemon Mini" SET CONSOLE=nes
-IF %CONSOLE%=="Nintendo Satellaview" SET CONSOLE=nes
-IF %CONSOLE%=="Nintendo Super Famicom" SET CONSOLE=nes
-IF %CONSOLE%=="Nintendo Super Game Boy" SET CONSOLE=nes
-IF %CONSOLE%=="Nintendo Virtual Boy" SET CONSOLE=nes
-IF %CONSOLE%=="Nintendo Wii" SET CONSOLE=nes
-IF %CONSOLE%=="Nintendo Wii U" SET CONSOLE=nes
-IF %CONSOLE%=="Nintendo WiiWare" SET CONSOLE=nes
-IF %CONSOLE%=="Panasonic 3DO" SET CONSOLE=3do
-IF %CONSOLE%=="PC Games" SET CONSOLE=pc
-IF %CONSOLE%=="Pinball FX2" SET CONSOLE=futurepinball
-IF %CONSOLE%=="Sega 32X" SET CONSOLE=sega32x
-IF %CONSOLE%=="Sega CD" SET CONSOLE=segacd
-IF %CONSOLE%=="Sega Classics" SET CONSOLE=sega32x
-IF %CONSOLE%=="Sega Dreamcast" SET CONSOLE=dreamcast
-IF %CONSOLE%=="Sega Game Gear" SET CONSOLE=gamegear
-IF %CONSOLE%=="Sega Genesis" SET CONSOLE=genesis
-IF %CONSOLE%=="Sega Hikaru" SET CONSOLE=sega32x
-IF %CONSOLE%=="Sega Master System" SET CONSOLE=mastersystem
-IF %CONSOLE%=="Sega Model 2" SET CONSOLE=sega32x
-IF %CONSOLE%=="Sega Model 3" SET CONSOLE=sega32x
-IF %CONSOLE%=="Sega Naomi" SET CONSOLE=sega32x
-IF %CONSOLE%=="Sega Pico" SET CONSOLE=sega32x
-IF %CONSOLE%=="Sega Saturn" SET CONSOLE=saturn
-IF %CONSOLE%=="Sega SC-3000" SET CONSOLE=sega32x
-IF %CONSOLE%=="Sega SG-1000" SET CONSOLE=sega32x
-IF %CONSOLE%=="Sega ST-V" SET CONSOLE=sega32x
-IF %CONSOLE%=="Sega Triforce" SET CONSOLE=sega32x
-IF %CONSOLE%=="Sega VMU" SET CONSOLE=sega32x
-IF %CONSOLE%=="Sinclair ZX Spectrum" SET CONSOLE=zxspectrum
-IF %CONSOLE%=="Sinclair ZX81" SET CONSOLE=zxspectrum
-IF %CONSOLE%=="SNK Classics" SET CONSOLE=neogeo
-IF %CONSOLE%=="SNK Neo Geo AES" SET CONSOLE=neogeo
-IF %CONSOLE%=="SNK Neo Geo CD" SET CONSOLE=neogeo
-IF %CONSOLE%=="SNK Neo Geo MVS" SET CONSOLE=neogeo
-IF %CONSOLE%=="SNK Neo Geo Pocket" SET CONSOLE=ngp
-IF %CONSOLE%=="SNK Neo Geo Pocket Color" SET CONSOLE=ngpc
-IF %CONSOLE%=="Sony PlayStation" SET CONSOLE=psx
-IF %CONSOLE%=="Sony PlayStation 2" SET CONSOLE=ps2
-IF %CONSOLE%=="Sony PocketStation" SET CONSOLE=psp
-IF %CONSOLE%=="Sony PSP" SET CONSOLE=psp
-IF %CONSOLE%=="Sony PSP Minis" SET CONSOLE=psp
-IF %CONSOLE%=="Super Nintendo Entertainment System" SET CONSOLE=snes
-IF %CONSOLE%=="Visual Pinball" SET CONSOLE=visualpinball
-IF %CONSOLE%=="Zinc" SET CONSOLE=zinc
+IF "%CONSOLE%"=="Amstrad CPC" SET CONSOLE=amstradcpc
+IF "%CONSOLE%"=="Amstrad GX4000" SET CONSOLE=amstradcpc
+IF "%CONSOLE%"=="Apple II" SET CONSOLE=apple2
+IF "%CONSOLE%"=="Apple IIGS" SET CONSOLE=apple2
+IF "%CONSOLE%"=="Atari 2600" SET CONSOLE=atari2600
+IF "%CONSOLE%"=="Atari 5200" SET CONSOLE=atari5200
+IF "%CONSOLE%"=="Atari 7800" SET CONSOLE=atari7800
+IF "%CONSOLE%"=="Atari Jaguar" SET CONSOLE=atarijaguar
+IF "%CONSOLE%"=="Atari Jaguar CD" SET CONSOLE=atarijaguar
+IF "%CONSOLE%"=="Atari Lynx" SET CONSOLE=atarilynx
+IF "%CONSOLE%"=="Bandai Super Vision 8000" SET CONSOLE=wonderswan
+IF "%CONSOLE%"=="Bandai WonderSwan" SET CONSOLE=wonderswan
+IF "%CONSOLE%"=="Bandai WonderSwan Color" SET CONSOLE=wonderswancolor
+IF "%CONSOLE%"=="Capcom Classics" SET CONSOLE=capcom
+IF "%CONSOLE%"=="Capcom Play System" SET CONSOLE=capcom
+IF "%CONSOLE%"=="Capcom Play System II" SET CONSOLE=capcom
+IF "%CONSOLE%"=="Capcom Play System III" SET CONSOLE=capcom
+IF "%CONSOLE%"=="ColecoVision" SET CONSOLE=coleco
+IF "%CONSOLE%"=="Commodore 128" SET CONSOLE=c64
+IF "%CONSOLE%"=="Commodore 16 & Plus4" SET CONSOLE=c64
+IF "%CONSOLE%"=="Commodore 64" SET CONSOLE=c64
+IF "%CONSOLE%"=="Commodore Amiga" SET CONSOLE=amiga
+IF "%CONSOLE%"=="Commodore Amiga CD32" SET CONSOLE=amiga
+IF "%CONSOLE%"=="Commodore VIC-20" SET CONSOLE=c64
+IF "%CONSOLE%"=="Daphne" SET CONSOLE=daphne
+IF "%CONSOLE%"=="Final Burn Alpha" SET CONSOLE=fba
+IF "%CONSOLE%"=="Future Pinball" SET CONSOLE=futurepinball
+IF "%CONSOLE%"=="GCE Vectrex" SET CONSOLE=vectrex
+IF "%CONSOLE%"=="Magnavox Odyssey" SET CONSOLE=odyssey
+IF "%CONSOLE%"=="Magnavox Odyssey 2" SET CONSOLE=odyssey
+IF "%CONSOLE%"=="Mattel Intellivision" SET CONSOLE=intellivision
+IF "%CONSOLE%"=="Microsoft MSX" SET CONSOLE=msx
+IF "%CONSOLE%"=="Microsoft MSX2" SET CONSOLE=msx
+IF "%CONSOLE%"=="Microsoft MSX2+" SET CONSOLE=msx
+IF "%CONSOLE%"=="Microsoft Windows 3.x" SET CONSOLE=pc
+IF "%CONSOLE%"=="MiSFiT MAME" SET CONSOLE=mame
+IF "%CONSOLE%"=="NEC PC Engine" SET CONSOLE=pcengine
+IF "%CONSOLE%"=="NEC PC Engine-CD" SET CONSOLE=pcengine
+IF "%CONSOLE%"=="NEC PC-8801" SET CONSOLE=pcengine
+IF "%CONSOLE%"=="NEC PC-9801" SET CONSOLE=pcengine
+IF "%CONSOLE%"=="NEC PC-FX" SET CONSOLE=pcengine
+IF "%CONSOLE%"=="NEC SuperGrafx" SET CONSOLE=pcengine
+IF "%CONSOLE%"=="NEC TurboGrafx-16" SET CONSOLE=pcengine
+IF "%CONSOLE%"=="NEC TurboGrafx-CD" SET CONSOLE=pcengine
+IF "%CONSOLE%"=="Nintendo 64" SET CONSOLE=n64
+IF "%CONSOLE%"=="Nintendo 64DD" SET CONSOLE=n64
+IF "%CONSOLE%"=="Nintendo Entertainment System" SET CONSOLE=nes
+IF "%CONSOLE%"=="Nintendo Famicom" SET CONSOLE=nes
+IF "%CONSOLE%"=="Nintendo Famicom Disk System" SET CONSOLE=nes
+IF "%CONSOLE%"=="Nintendo Game Boy" SET CONSOLE=gb
+IF "%CONSOLE%"=="Nintendo Game Boy Advance" SET CONSOLE=gba
+IF "%CONSOLE%"=="Nintendo Game Boy Color" SET CONSOLE=gbc
+IF "%CONSOLE%"=="Nintendo GameCube" SET CONSOLE=nes
+IF "%CONSOLE%"=="Nintendo Pokemon Mini" SET CONSOLE=nes
+IF "%CONSOLE%"=="Nintendo Satellaview" SET CONSOLE=nes
+IF "%CONSOLE%"=="Nintendo Super Famicom" SET CONSOLE=nes
+IF "%CONSOLE%"=="Nintendo Super Game Boy" SET CONSOLE=nes
+IF "%CONSOLE%"=="Nintendo Virtual Boy" SET CONSOLE=nes
+IF "%CONSOLE%"=="Nintendo Wii" SET CONSOLE=nes
+IF "%CONSOLE%"=="Nintendo Wii U" SET CONSOLE=nes
+IF "%CONSOLE%"=="Nintendo WiiWare" SET CONSOLE=nes
+IF "%CONSOLE%"=="Panasonic 3DO" SET CONSOLE=3do
+IF "%CONSOLE%"=="PC Games" SET CONSOLE=pc
+IF "%CONSOLE%"=="Pinball FX2" SET CONSOLE=futurepinball
+IF "%CONSOLE%"=="Sega 32X" SET CONSOLE=sega32x
+IF "%CONSOLE%"=="Sega CD" SET CONSOLE=segacd
+IF "%CONSOLE%"=="Sega Classics" SET CONSOLE=sega32x
+IF "%CONSOLE%"=="Sega Dreamcast" SET CONSOLE=dreamcast
+IF "%CONSOLE%"=="Sega Game Gear" SET CONSOLE=gamegear
+IF "%CONSOLE%"=="Sega Genesis" SET CONSOLE=genesis
+IF "%CONSOLE%"=="Sega Hikaru" SET CONSOLE=sega32x
+IF "%CONSOLE%"=="Sega Master System" SET CONSOLE=mastersystem
+IF "%CONSOLE%"=="Sega Model 2" SET CONSOLE=sega32x
+IF "%CONSOLE%"=="Sega Model 3" SET CONSOLE=sega32x
+IF "%CONSOLE%"=="Sega Naomi" SET CONSOLE=sega32x
+IF "%CONSOLE%"=="Sega Pico" SET CONSOLE=sega32x
+IF "%CONSOLE%"=="Sega Saturn" SET CONSOLE=saturn
+IF "%CONSOLE%"=="Sega SC-3000" SET CONSOLE=sega32x
+IF "%CONSOLE%"=="Sega SG-1000" SET CONSOLE=sega32x
+IF "%CONSOLE%"=="Sega ST-V" SET CONSOLE=sega32x
+IF "%CONSOLE%"=="Sega Triforce" SET CONSOLE=sega32x
+IF "%CONSOLE%"=="Sega VMU" SET CONSOLE=sega32x
+IF "%CONSOLE%"=="Sinclair ZX Spectrum" SET CONSOLE=zxspectrum
+IF "%CONSOLE%"=="Sinclair ZX81" SET CONSOLE=zxspectrum
+IF "%CONSOLE%"=="SNK Classics" SET CONSOLE=neogeo
+IF "%CONSOLE%"=="SNK Neo Geo AES" SET CONSOLE=neogeo
+IF "%CONSOLE%"=="SNK Neo Geo CD" SET CONSOLE=neogeo
+IF "%CONSOLE%"=="SNK Neo Geo MVS" SET CONSOLE=neogeo
+IF "%CONSOLE%"=="SNK Neo Geo Pocket" SET CONSOLE=ngp
+IF "%CONSOLE%"=="SNK Neo Geo Pocket Color" SET CONSOLE=ngpc
+IF "%CONSOLE%"=="Sony PlayStation" SET CONSOLE=psx
+IF "%CONSOLE%"=="Sony PlayStation 2" SET CONSOLE=ps2
+IF "%CONSOLE%"=="Sony PocketStation" SET CONSOLE=psp
+IF "%CONSOLE%"=="Sony PSP" SET CONSOLE=psp
+IF "%CONSOLE%"=="Sony PSP Minis" SET CONSOLE=psp
+IF "%CONSOLE%"=="Super Nintendo Entertainment System" SET CONSOLE=snes
+IF "%CONSOLE%"=="Visual Pinball" SET CONSOLE=visualpinball
+IF "%CONSOLE%"=="Zinc" SET CONSOLE=zinc
 rem ****************************************************************
 
 rem ******Set the Default Console Marquees *************************
