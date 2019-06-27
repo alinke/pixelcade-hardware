@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<jsmoothproject>
+<JVMSearchPath>registry</JVMSearchPath>
+<JVMSearchPath>javahome</JVMSearchPath>
+<JVMSearchPath>jrepath</JVMSearchPath>
+<JVMSearchPath>jdkpath</JVMSearchPath>
+<JVMSearchPath>exepath</JVMSearchPath>
+<JVMSearchPath>jview</JVMSearchPath>
+<arguments></arguments>
+<bundledJVMPath>jre</bundledJVMPath>
+<classPath>jar\YahooFinanceAPI-2.0.0.jar</classPath>
+<classPath>jar\commons-codec-1.10.jar</classPath>
+<classPath>jar\commons-logging-1.2-javadoc.jar</classPath>
+<classPath>jar\commons-logging-1.2.jar</classPath>
+<classPath>jar\gson-2.8.5.jar</classPath>
+<classPath>jar\httpclient-4.3.4.jar</classPath>
+<classPath>jar\httpcore-4.3.2.jar</classPath>
+<classPath>jar\imgscalr-lib-4.2.jar</classPath>
+<classPath>jar\jna-4.0.0.jar</classPath>
+<classPath>jar\json-simple-1.1.1.jar</classPath>
+<classPath>jar\owm-japis-2.5.2.3-javadoc.jar</classPath>
+<classPath>jar\owm-japis-2.5.2.3.jar</classPath>
+<classPath>jar\purejavacomm-0.0.21.jar</classPath>
+<classPath>jar\twitter4j-core-4.0.2.jar</classPath>
+<currentDirectory>${EXECUTABLEPATH}</currentDirectory>
+<embeddedJar>true</embeddedJar>
+<executableName>pixelcade.exe</executableName>
+<iconLocation>pixelcade.png</iconLocation>
+<initialMemoryHeap>-1</initialMemoryHeap>
+<jarLocation>pixelcade.jar</jarLocation>
+<mainClassName>org.onebeartoe.front.end.pixelcade.PixelcadeFrontEnd</mainClassName>
+<maximumMemoryHeap>-1</maximumMemoryHeap>
+<maximumVersion></maximumVersion>
+<minimumVersion></minimumVersion>
+<skeletonName>Console Wrapper</skeletonName>
+<skeletonProperties>
+<key>Message</key>
+<value>This program needs 32-Bit Java to run (IMPORTANT: 64-Bit Java will not work)
+Please download 32-Bit Java from https://java.com/en/download/manual.jsp</value>
+</skeletonProperties>
+<skeletonProperties>
+<key>PressKey</key>
+<value>0</value>
+</skeletonProperties>
+<skeletonProperties>
+<key>Debug</key>
+<value>0</value>
+</skeletonProperties>
+</jsmoothproject>
