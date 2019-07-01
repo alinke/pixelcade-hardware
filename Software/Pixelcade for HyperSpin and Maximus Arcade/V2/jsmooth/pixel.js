@@ -8,6 +8,7 @@ function changeControls(mode)
             hideElement("stillPanel");
             hideElement("scrollingTextPanel");
             hideElement("clockPanel");
+            hideElement("arcadePanel");
             
             showElement("animationsPanel");
             
@@ -18,6 +19,7 @@ function changeControls(mode)
             hideElement("animationsPanel");
             hideElement("scrollingTextPanel");
             hideElement("clockPanel");
+            hideElement("arcadePanel");   
             
             showElement("stillPanel");
             
@@ -28,17 +30,32 @@ function changeControls(mode)
             hideElement("animationsPanel");
             hideElement("stillPanel");
             hideElement("scrollingTextPanel");
+            hideElement("arcadePanel");
             
             showElement("clockPanel");
             
             break;
         }
+
+        case "arcade":
+        {
+            hideElement("animationsPanel");
+            hideElement("stillPanel");
+            hideElement("scrollingTextPanel");
+            hideElement("clockPanel");
+
+            showElement("arcadePanel");
+
+            break;
+        }
+
         default:
         {
             // scrolling text
             hideElement("animationsPanel");
             hideElement("stillPanel");
             hideElement("clockPanel");
+            hideElement("arcadePanel");
             
             showElement("scrollingTextPanel");
             
@@ -85,6 +102,13 @@ function displayImage(imagePath, name)
             mode = "animation/";
             break;
         }
+        
+        case "arcade/":
+        {
+            mode = "arcade/";
+            break;
+        }
+
         default:
         {
             // still images
@@ -124,6 +148,16 @@ function loadAnimations()
     
     loadImageList(url, elementName, imagePath);
 }
+
+function loadArcade()
+{
+    var url = "/arcade/list";
+    var elementName = "arcade";
+    var imagePath = "arcade/";
+    
+    loadImageList(url, elementName, imagePath);
+}
+
 
 function loadImageList(url, elementName, imagePath)
 {
@@ -170,6 +204,12 @@ function loadImageList(url, elementName, imagePath)
                         html += "<button onclick=\"displayImage('" + imagePath + "save/" + "', '" + name + "')\" style=\"margin-left: auto; margin-right: auto;\">Save</button>";
                     }
 
+                     if(imagePath == "arcade/")
+                    {
+                        html += " ";
+                        html += "<button onclick=\"displayImage('" + imagePath + "', '" + name + "')\" style=\"margin-left: auto; margin-right: auto;\">Save</button>";
+                    }
+
                     html += "</center>";
                     html += "</div>";
                 }
@@ -199,6 +239,7 @@ function loadImageList(url, elementName, imagePath)
 function loadImageResources()
 {
     loadStillImages();
+    loadArcade();
     loadAnimations();
 }
 

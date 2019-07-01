@@ -6,7 +6,6 @@
 <JVMSearchPath>jdkpath</JVMSearchPath>
 <JVMSearchPath>exepath</JVMSearchPath>
 <JVMSearchPath>jview</JVMSearchPath>
-<arguments></arguments>
 <bundledJVMPath>jre</bundledJVMPath>
 <classPath>jar\YahooFinanceAPI-2.0.0.jar</classPath>
 <classPath>jar\commons-codec-1.10.jar</classPath>

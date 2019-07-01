@@ -10,7 +10,7 @@
 
         <link rel="stylesheet" type="text/css" href="images.css" />
         
-        <title>onebeartoe Pixel Web Application</title>
+        <title>Pixel Web Application</title>
     </head>
 
     <body onload="loadImageResources(); updateMode();">
@@ -43,6 +43,7 @@
                 
                 <option value="animations">Animations</option>
                 <option value="still">Still Images</option>
+                <option value="arcade">Arcade Marquees</option>
                 <option value="text" selected>Scrolling Text</option>
                 <option value="clock" >Clock</option>
             </select>
@@ -66,6 +67,30 @@
             <h3>Still Images</h3>
 
             <div id="still">
+
+            </div>
+
+            <br/>
+        </div>
+        
+        <div id="arcadePanel">
+            <div>
+                <h3>Upload a New Still Image</h3>
+                
+                <form method="POST" enctype="multipart/form-data" action="/upload">
+                    <input type="file" name="upload"/>
+                    <input type="hidden" name="upload-type" value="STILL_IMAGE"/>
+                    <input type="submit" value="Upload"/>
+                </form>
+            </div>
+            
+            <br/>
+        
+            <hr/>
+
+            <h3>Arcade Marquees</h3>
+
+            <div id="arcade">
 
             </div>
 
@@ -131,11 +156,11 @@
         
 	<br/>
 
-	<a href="http://www.onebeartoe.com" 
+	<a href="http://ledpixelart.com" 
             style="display: block; 										  											 
             text-align: center;											  
             font-size:1.875em; ">
-            brought to you by onebeartoe.com
+            ledpixelart.com
 	</a>											 
     </body>
 </html>
