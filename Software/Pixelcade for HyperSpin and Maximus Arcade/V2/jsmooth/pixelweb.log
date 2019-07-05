@@ -1,0 +1,23 @@
+************** Sample Log File ***************
+************** Launch pixelweb.exe to generate your own log 
+************** Disable logging with pixelweb.exe -s *******
+
+INFO:Pixelcade Listender (pixelweb) Version 2.0.4
+INFO:PIXEL resolution found in settings.ini: resolution=128x32
+INFO:Pixelcade HOME DIRECTORY: C:\Users\alinke\DOCUME~1\INSTAL~1\jsmooth\
+INFO:PIXEL port found in settings.ini: port=COM9
+INFO:Found PIXEL: ioio.lib.impl.RgbLedMatrixImpl@1f37865
+You may now interact with the PIXEL!
+LED matrix type is: 15
+PIXEL Status: Connected
+INFO:arcade handler received /arcade/stream/mame/nibbler
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: nibbler
+INFO:arcade handler received /arcade/stream/mame/pacman
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: pacman
+INFO:Received shut down command, now exiting...

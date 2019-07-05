@@ -1,27 +1,12 @@
-INFO:Pixelcade Listender (pixelweb) Version 2.0.2
-INFO:PIXEL resolution found in settings.ini: resolution=128x32
-INFO:Pixelcade HOME DIRECTORY: C:\Users\alinke\DOCUME~1\INSTAL~1\jsmooth\
-INFO:PIXEL port found in settings.ini: port=COM9
-INFO:Found PIXEL: ioio.lib.impl.RgbLedMatrixImpl@17f8cc1
-You may now interact with the PIXEL!
-LED matrix type is: 15
-PIXEL Status: Connected
-INFO:arcade handler received /arcade/stream/black/dummy
-INFO:STREAM MODE
-INFO:Console Before Mapping: black
-INFO:Console Mapped: black
-INFO:Game Name Only: dummy
-INFO:PNG image found: file:/C:/Users/alinke/DOCUME~1/INSTAL~1/jsmooth/console/default-black.png
-INFO:arcade handler received /arcade/stream/mame/pacman
-INFO:STREAM MODE
-INFO:Console Before Mapping: mame
-INFO:Console Mapped: mame
-INFO:Game Name Only: pacman
-INFO:PNG image found: file:/C:/Users/alinke/DOCUME~1/INSTAL~1/jsmooth/mame/pacman.png
-INFO:arcade handler received /arcade/write/black/dummy
-INFO:WRITE MODE
-INFO:Console Before Mapping: black
-INFO:Console Mapped: black
-INFO:Game Name Only: dummy
-INFO:PNG image found: file:/C:/Users/alinke/DOCUME~1/INSTAL~1/jsmooth/console/default-black.png
-INFO:Received shut down command, now exiting...
+************** Sample Log File ***************
+************** Launch pixelcade.exe to generate your own log 
+************** Disable logging with pixelcade.exe -s *******
+
+INFO:Console Name: mame
+INFO:Game Name: galaga
+INFO:Mode: stream
+INFO:Console Name: mame
+INFO:Game Name: pacman
+INFO:Mode: stream
+INFO:Console Name: mame
+INFO:Game Name: qbert
