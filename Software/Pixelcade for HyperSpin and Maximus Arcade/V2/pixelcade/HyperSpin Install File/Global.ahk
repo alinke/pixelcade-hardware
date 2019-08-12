@@ -5,8 +5,6 @@
 
 class GlobalUserFunction extends UserFunction {
 
-
-
 	; Use this function to define any code you want to run on initialization
 	InitUserFeatures() {
 		Global dbName,systemName
@@ -19,18 +17,7 @@ class GlobalUserFunction extends UserFunction {
 	StartUserFeatures() {
 		Global dbName,systemName, romName
 		RLLog.Info(A_ThisFunc . " - Starting")
-		; INSERT CODE HERE
-		;MsgBox, %systemName%
-		;MsgBox, %romName%
-		Run, c:\RocketLauncher\Pixelcade\pixelcade.bat "%systemName%" "%romName%" , c:\RocketLauncher\pixelcade\, Hide
-		
-		;If (systemName = "Nintendo Entertainment System") {
-			;MsgBox, "nes match"
-			;MsgBox, %romName%
-		;}
-		
-		;because HyperSpin uses different names for the system names that we used in RetroPie, we'll need to map in pixelcade.bat
-		
+		Run, c:\RocketLauncher\Pixelcade\pixelcade.exe -m stream -c "%systemName%" -g "%romName%" -gt , c:\RocketLauncher\pixelcade\, Hide
 		RLLog.Info(A_ThisFunc . " - Ending")
 	}
 
@@ -38,7 +25,7 @@ class GlobalUserFunction extends UserFunction {
 	StopUserFeatures() {
 		Global dbName,systemName
 		RLLog.Info(A_ThisFunc . " - Starting")
-		Run, c:\RocketLauncher\Pixelcade\default.bat "%systemName%" "%romName%", c:\RocketLauncher\Pixelcade\, Hide
+		Run, c:\RocketLauncher\Pixelcade\pixelcade.exe -m stream -c "%systemName%" -g dummy , c:\RocketLauncher\pixelcade\, Hide
 		RLLog.Info(A_ThisFunc . " - Ending")
 	}
 
