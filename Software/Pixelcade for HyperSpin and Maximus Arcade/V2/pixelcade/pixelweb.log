@@ -1,0 +1,284 @@
+INFO:Pixelcade Listender (pixelweb) Version 2.5.3
+INFO:PIXEL resolution found in settings.ini: resolution=128x32
+INFO:Pixelcade HOME DIRECTORY: C:\RocketLauncher\Pixelcade\
+INFO:PIXEL port found in settings.ini: port=COM9
+INFO:No Items in the Queue at Startup...
+INFO:Found PIXEL: ioio.lib.impl.RgbLedMatrixImpl@51b9b0
+You may now interact with PIXEL!
+LED matrix type is: 15
+PIXEL Status: Connected
+INFO:Scrolling text handler received a request: /text?t=Al's%20Arcade&ss=5&c=magenta&l=1
+INFO:scrolling text: Al's Arcade
+INFO:text color: magenta
+INFO:# times to loop: 1
+INFO:arcade handler received: /arcade/stream/marquee/dummy?l=99999
+INFO:STREAM MODE
+INFO:Console Before Mapping: marquee
+INFO:Console Mapped: marquee
+INFO:Game Name Only: dummy
+INFO:# of Times to Loop: 99999
+INFO:Looking for: C:\RocketLauncher\Pixelcade\marquee\dummy.png or .gif
+INFO:console handler received: /console/stream/ALL?ss=5&c=magenta&t=All&l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: all
+INFO:Console Mapped: all
+INFO:# of Times to Loop: null
+INFO:alt text if marquee file not found: All
+INFO:Looking for: C:\RocketLauncher\Pixelcade\console\all.png or .gif
+INFO:arcade handler received: /arcade/stream/MAME/1ON1GOV?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 1ON1GOV
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\1ON1GOV.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/console/default-mame.png
+INFO:arcade handler received: /arcade/stream/MAME/005?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 005
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\005.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/005.png
+INFO:arcade handler received: /arcade/stream/MAME/1941U?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 1941U
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\1941U.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/1941U.png
+INFO:arcade handler received: /arcade/stream/MAME/005?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 005
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\005.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/005.png
+INFO:arcade handler received: /arcade/stream/MAME/1941U?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 1941U
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\1941U.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/1941U.png
+INFO:arcade handler received: /arcade/stream/MAME/1943KAI?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 1943KAI
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\1943KAI.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/1943KAI.png
+INFO:arcade handler received: /arcade/stream/MAME/1942?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 1942
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\1942.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/1942.png
+INFO:arcade handler received: /arcade/stream/MAME/005?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 005
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\005.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/005.png
+INFO:arcade handler received: /arcade/stream/MAME/1941U?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 1941U
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\1941U.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/1941U.png
+INFO:arcade handler received: /arcade/stream/MAME/1942?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 1942
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\1942.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/1942.png
+INFO:arcade handler received: /arcade/stream/MAME/1943KAI?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 1943KAI
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\1943KAI.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/1943KAI.png
+INFO:arcade handler received: /arcade/stream/MAME/10YARD85?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 10YARD85
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\10YARD85.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/10YARD85.png
+INFO:arcade handler received: /arcade/stream/MAME/1ON1GOV?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 1ON1GOV
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\1ON1GOV.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/console/default-mame.png
+INFO:arcade handler received: /arcade/stream/MAME/005?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 005
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\005.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/005.png
+INFO:arcade handler received: /arcade/stream/MAME/10YARD85?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 10YARD85
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\10YARD85.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/10YARD85.png
+INFO:arcade handler received: /arcade/stream/MAME/1943KAI?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 1943KAI
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\1943KAI.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/1943KAI.png
+INFO:arcade handler received: /arcade/stream/MAME/1942?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 1942
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\1942.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/1942.png
+INFO:arcade handler received: /arcade/stream/MAME/1941U?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 1941U
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\1941U.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/1941U.png
+INFO:arcade handler received: /arcade/stream/MAME/1943U?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 1943U
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\1943U.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/1943U.png
+INFO:arcade handler received: /arcade/stream/MAME/1944?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 1944
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\1944.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/1944.png
+INFO:arcade handler received: /arcade/stream/MAME/1945KIII?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 1945KIII
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\1945KIII.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/1945KIII.png
+INFO:arcade handler received: /arcade/stream/MAME/3COUNTB?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 3COUNTB
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\3COUNTB.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/3COUNTB.png
+INFO:arcade handler received: /arcade/stream/MAME/2020BB?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 2020BB
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\2020BB.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/2020BB.png
+INFO:arcade handler received: /arcade/stream/MAME/19XX?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 19XX
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\19XX.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/19XX.png
+INFO:arcade handler received: /arcade/stream/MAME/1941U?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 1941U
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\1941U.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/1941U.png
+INFO:arcade handler received: /arcade/stream/MAME/1943U?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 1943U
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\1943U.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/1943U.png
+INFO:arcade handler received: /arcade/stream/MAME/1944?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 1944
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\1944.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/1944.png
+INFO:arcade handler received: /arcade/stream/MAME/1945KIII?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 1945KIII
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\1945KIII.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/1945KIII.png
+INFO:arcade handler received: /arcade/stream/MAME/3COUNTB?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 3COUNTB
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\3COUNTB.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/3COUNTB.png
+INFO:arcade handler received: /arcade/stream/MAME/2020BB?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 2020BB
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\2020BB.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/2020BB.png
+INFO:arcade handler received: /arcade/stream/MAME/19XX?l=0
+INFO:STREAM MODE
+INFO:Console Before Mapping: mame
+INFO:Console Mapped: mame
+INFO:Game Name Only: 19XX
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\mame\19XX.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/mame/19XX.png
+INFO:arcade handler received: /arcade/write/black/dummy?l=0
+INFO:WRITE MODE
+INFO:Console Before Mapping: black
+INFO:Console Mapped: black
+INFO:Game Name Only: dummy
+INFO:# of Times to Loop: null
+INFO:Looking for: C:\RocketLauncher\Pixelcade\black\dummy.png or .gif
+INFO:PNG image found: file:/C:/RocketLauncher/Pixelcade/console/default-black.png
+INFO:Received shut down command, now exiting...
