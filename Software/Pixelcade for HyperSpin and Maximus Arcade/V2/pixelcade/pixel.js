@@ -1,4 +1,3 @@
-
 function changeControls(mode)
 {
     switch(mode)
@@ -88,12 +87,13 @@ function displayImage(imagePath, name)
     {
         case "animations/save/":
         {
-            mode = "animation/save/";
+            mode = "animations/write/";
+            alert("Pixelcade Marquee will be blank until writing has completed, please don't select anything else until the animation appears on Pixelcade");
             break;
         }
         case "animations/":
         {
-            mode = "animation/";
+            mode = "animations/stream/";
             break;
         }
         
@@ -122,6 +122,7 @@ function displayImage(imagePath, name)
         logServerResponse(xmlhttp);
     }
     var url = "/" + mode + name; 
+    // alert(url); pop up for debugging
     xmlhttp.open("POST", url, true);
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.send("&p=3");    
@@ -142,7 +143,7 @@ function hideElement(id)
 
 function loadAnimations()
 {
-    var url = "/animation/list";
+    var url = "/animations/list";
     var elementName = "animations";
     var imagePath = "animations/";
     
@@ -245,7 +246,7 @@ function loadImageResources()
 {
     loadStillImages();
     //loadArcade();
-    loadAnimations();
+    loadAnimations(); //this works
 }
 
 function loadStillImages()
@@ -317,7 +318,7 @@ function updateMode()
         // display the correct mode UI
         var response = xmlhttp.responseText;
         
-        var label = "Scrolling Texttttt";
+        var label = "Scrolling Text";
         
         var o = 2
         
@@ -358,8 +359,10 @@ function updateMode()
         
         logServerResponse(xmlhttp);
     }
+    
     var url = "/upload/origin";
     xmlhttp.open("POST", url, true);
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.send("&p=3");
+    
 }

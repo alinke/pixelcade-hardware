@@ -1,0 +1,1 @@
+pixelcade -m write -c mame -g 1941
