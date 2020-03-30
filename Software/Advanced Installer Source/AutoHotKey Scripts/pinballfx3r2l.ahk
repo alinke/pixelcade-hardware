@@ -22,9 +22,9 @@ and only enter the number only, omitting the COM text
 
 PixelcadeMatrixQuestion =
 (
-* Press Yes if you have the Pixelcade PinDMD P2.5 size
+* Press Yes if you have the Pixelcade LED Marquee size: P3, P4, P5, or P6. This includes Pixelcade for AtGames Legends Ultimate, Arcade1Up, and custom installations.
 
-* Press No if you have a different Pixelcade LED Marquee size: P3, P4, P5, or P6
+* Press No if you have the Pixelcade Color Pinball Dot Matrix Display P2.5 size
 )
 
 ;we need to quit the pixelcade listener if it's running
@@ -32,13 +32,19 @@ RunWait, curl.exe -s http://localhost:8080/quit, , Min
 
 IniRead, PixelcadeCOMPort, DmdDevice.ini, pixelcade, port
 
-if (PixelcadeCOMPort = "COM99" or PixelcadeCOMPort = "COM")
+;let's validate the text COM or com is there
+If InStr(PixelcadeCOMPort, "COM")
+    COMText=true
+Else
+    COMText=false
+
+if (PixelcadeCOMPort = "COM99" or PixelcadeCOMPort = "COM" or COMText="false")
 {
    Run, devmgmt.msc
    
-   InputBox, UserInputCOMPortNumber, Pixelcade COM Port,%PixelcadeCOMPortPrompt% , , 640, 480,800,0
+   InputBox, UserInputCOMPortNumber, One Time Pixelcade COM Port Setup,%PixelcadeCOMPortPrompt% , , 640, 480,800,0
    if ErrorLevel
-       MsgBox, Pixelcade PinDMD won't work until the COM Port has been entered, please run this again
+       MsgBox, Pixelcade Pinball DMD won't work until the COM Port has been entered, please run this again
    else
     If UserInputCOMPortNumber is not digit
     { 
@@ -49,19 +55,26 @@ if (PixelcadeCOMPort = "COM99" or PixelcadeCOMPort = "COM")
     
     PixelcadeCOMPortNew = COM%UserInputCOMPortNumber%
     IniWrite, %PixelcadeCOMPortNew%, %A_SCRIPTDIR%\DmdDevice.ini, pixelcade, port 
-    MsgBox %PixelcadeCOMPortNew% will be used for Pixelcade PinDMD
+    MsgBox %PixelcadeCOMPortNew% will be used for Pixelcade Pinball DMD
     
     MsgBox, 4,Pixelcade Model Selection, %PixelcadeMatrixQuestion%
     IfMsgBox Yes
-        IniWrite, rbg, %A_SCRIPTDIR%\DmdDevice.ini, pixelcade, matrix 
+        IniWrite, rgb, %A_SCRIPTDIR%\DmdDevice.ini, pixelcade, matrix 
     else
-    	IniWrite, rgb, %A_SCRIPTDIR%\DmdDevice.ini, pixelcade, matrix 
+    	IniWrite, rbg, %A_SCRIPTDIR%\DmdDevice.ini, pixelcade, matrix 
    
 }
 
-Run, dmdext.exe mirror --source=pinballarcade --no-virtual --use-ini=DmdDevice.ini , , Min
+Run, dmdext.exe mirror --source=pinballfx3 --no-virtual --use-ini=DmdDevice.ini , , Min
 
-SplashTextOn, , , Please Launch Pinball Arcade...
+SplashTextOn, , ,Launching Pinball FX3 on Stream
 Sleep, 3000
 SplashTextOff
+
+try {
+    Run, steam://rungameid/442120  ; that is the steam id of pinball fx on steam
+} catch e {
+     MsgBox 48, Steam Not Installed, Sorry, it appears Steam is not installed`n`nPlease install the Steam version of Pinball FX3`n`nhttps://store.steampowered.com/app/442120/Pinball_FX3/
+}
+
 ExitApp
