@@ -1,4 +1,4 @@
-
+;version 2.0
 ;#ErrorStdOut :?:
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 #SingleInstance force
@@ -123,6 +123,7 @@ if FileExist(installpathINI) {
 		IniWrite, Main Menu`,Main_Menu`,Favorites, %LEDBlinkySettingsPath%, FEOptions, FESystemListsNames 
 		IniWrite, 1, %LEDBlinkySettingsPath%, FEOptions, DemoGameControls 
 		IniWrite, 1, %LEDBlinkySettingsPath%, FEOptions, HLActive
+		IniWrite, 0, %LEDBlinkySettingsPath%, OtherSettings, DisplayErrorsOnExit  ;disable show errors on exit
 		
 		Gui, Add, Text,, Please select your Arcade Front End
 		Gui, Add, DropdownList,vfrontend,LaunchBox or BigBox|HyperSpin|GameEx or GameEx Arcade Edition|CoinOPS|Maximus Arcade|PinballX|Mala|AtomicFE|Other Front End
@@ -360,7 +361,7 @@ if FileExist(installpathINI) {
 		
 		If (MAMEExePath="") { ;this means pixelcade installer DID NOT find MAME so let's have the user manually tell us where it is
 			
-			FileSelectFile, MAMEExePath, 3, , *** MAME Installation Location Required *** Please find and select mame.exe, EXE Documents (mame.exe)
+			FileSelectFile, MAMEExePath, 3, , *** MAME Installation Location Required *** Please find and select mame.exe or mame64.exe, EXE(mame.exe;mame64.exe)
 			if (MAMEExePath = "") 
 				MsgBox, 16, Error,You did not specifiy your MAME installation and will need to configure this manually using LEDBlinkyConfig.exe
 			else 
@@ -374,7 +375,7 @@ if FileExist(installpathINI) {
 					SplitPath, MAMEExePath,, MAMEDirPath
 		    else 
 				{
-					FileSelectFile, MAMEExePath, 3, , *** MAME Installation Location Required *** Please find and select mame.exe, EXE Documents (mame.exe)
+					FileSelectFile, MAMEExePath, 3, , *** MAME Installation Location Required *** Please find and select mame.exe or mame64.exe, EXE (mame.exe;mame64.exe) ;user can pick mame.exe or mame64.exe
 					if (MAMEExePath = "") 
 						MsgBox, 16, Error,You did not specifiy your MAME installation and will need to configure this manually using LEDBlinkyConfig.exe
 					else 
@@ -396,8 +397,13 @@ if FileExist(installpathINI) {
 			if FileExist(MameXMLPath) 
 				IniWrite, %MAMEDirPath%\mame.xml, %LEDBlinkySettingsPath%, MAMEConfig, MameXmlFile
 			else {
-				MsgBox, 64, GENERATING MAME.XML, mame.xml was not found so we will now generate it now using this command:`n`n %MAMEDirPath%\mame.exe -listxml > mame.xml `n`n After you click OK `, a command line box will pop up `, please let this run until it goes away automatically AFTER A FEW MINUTES and DO NOT close this box
-				RunWait cmd /c mame  -listxml > mame.xml, %MAMEDirPath%, Max
+			    SplitPath, MAMEExePath , mame32or64 ;added this as the user may pick mame.exe or mame64.exe
+				;MsgBox, 64, GENERATING MAME.XML, mame.xml was not found so we will now generate it now using this command:`n`n %MAMEDirPath%\mame.exe -listxml > mame.xml `n`n After you click OK `, a command line box will pop up `, please let this run until it goes away automatically AFTER A FEW MINUTES and DO NOT close this box
+				MsgBox, 64, GENERATING MAME.XML, mame.xml was not found so we will now generate it now using this command:`n`n %MAMEDirPath%\%mame32or64% -listxml > mame.xml `n`n After you click OK `, a command line box will pop up `, please let this run until it goes away automatically AFTER A FEW MINUTES and DO NOT close this box
+				;RunWait cmd /c mame  -listxml > mame.xml, %MAMEDirPath%, Max				
+				SplashTextOn , 400, 100, GENERATING MAME.XML // DO NOT CLOSE, Please do not close the DOS/command line window`n`nThis will take a few minutes and will close automatically`, Thanks!
+				RunWait cmd /c %mame32or64% -listxml > mame.xml, %MAMEDirPath%
+				SplashTextOff
 				IniWrite, %MAMEDirPath%\mame.xml, %LEDBlinkySettingsPath%, MAMEConfig, MameXmlFile
 			}
 		}
