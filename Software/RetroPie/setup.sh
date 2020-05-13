@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#old version
 stretch_os=false
 buster_os=false
 install_succesful=false
