@@ -12,6 +12,7 @@ magenta=`tput setaf 5`
 white=`tput setaf 7`
 reset=`tput sgr0`
 #echo "${red}red text ${green}green text${reset}"
+#edit from the repo
 
 cat << "EOF"
        _          _               _
