@@ -1,4 +1,0 @@
-A big thanks to Ken for sharing pics of his recent Pixelcade installation. 
-Ken has a 2 Player custom cab from Monster Arcade:   https://www.monsterarcades.com/copy-of-monster-upright-43-4-pl  and 
-is using GameEx Arcade for his front end on Windows. His control panel is mainly Ultramarc controls and 
-he's using LEDBlinky for both the Pixelcade marquee and to control his LED Buttons via an I-PAC Ultimate. 
